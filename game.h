@@ -8,13 +8,13 @@
 #include "defines.h"
 #include "parsing.h"
 #include "commands.h"
+#include "display.h"
 
 char error[ERROR_SIZE];
 
 struct Game
 {
-	int width;
-	int height;
+	struct Display* display;
 	char name[NAME_SIZE];
 	int vars[VARS];
 	FILE* file;
@@ -23,7 +23,7 @@ struct Game
 };
 
 void run_game(char* filename);
-void initialize_game(struct Game* game);
+struct Game* initialize_game(void);
 void free_game(struct Game* game);
 /*void load_labels(struct Game* game);*/
 

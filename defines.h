@@ -16,4 +16,5 @@
 #define IMAGE_FILENAME_SIZE 1024
 #define PATH_SIZE 1024
 #define MAIN_SCENE "main"
+#define IMAGES 1024
 

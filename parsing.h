@@ -7,6 +7,7 @@ char* cut_command(char* buffer);
 int skip_space(char* s, int i);
 int skip_to_space(char* s, int i);
 char* strip_begin(char* s);
+void path_compatibilize(char* path);
 
 #endif
 

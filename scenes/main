@@ -1,7 +1,0 @@
-game_name A test game
-width 640
-#comment
-height 480
-display
-go scene2
-

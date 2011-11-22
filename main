@@ -1,0 +1,8 @@
+#!cvne
+game_name A test game
+width 800
+#comment
+height 600
+display
+load_image 1 chocolatine/1.png
+go scenes\scene2

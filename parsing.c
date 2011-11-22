@@ -35,3 +35,16 @@ char* strip_begin(char* s)
 	return s + skip_space(s, 0);
 }
 
+void path_compatibilize(char* path)
+{
+	int i;
+	for(i = 0; path[i] != '\0'; i++)
+	{
+#ifdef __WIN32
+		if(path[i] == '/') path[i] = '\\';
+#else
+		if(path[i] == '\\') path[i] = '/';
+#endif
+	}
+}
+
