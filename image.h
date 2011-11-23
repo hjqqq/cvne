@@ -22,9 +22,8 @@
 
 struct Image
 {
+	int id;
 	ALLEGRO_BITMAP* bitmap;
-/*	float centerx;
-	float centery;*/
 	float x;
 	float y;
 };

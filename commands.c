@@ -1,110 +1,75 @@
 #include "commands.h"
 
-struct CommandSet* build_command_set(void)
-{
-	struct CommandSet* set = malloc(sizeof(struct CommandSet));
-	int i;
-
-	for(i = 0; i < MAX_COMMANDS; i++)
-	{
-		set->text[i][0] = '\0';
-		set->func[i] = cmd_nothing;
-	}
-	set_command(set, "game_name", cmd_game_name);
-	set_command(set, "width", cmd_width);
-	set_command(set, "height", cmd_height);
-	set_command(set, "go", cmd_go);
-	set_command(set, "display", cmd_display);
-/*	set_command(set, "label", cmd_nothing);*/
-	set_command(set, "load_image", cmd_load_image);
-	set_command(set, "close_image", cmd_load_image);
-	set_command(set, "move_image", cmd_move_image);
-	set_command(set, "set", cmd_set);
-	return set;
+void build_command_list(struct Item* list)
+{	
+	add_command(list, "game_name", cmd_game_name);
+	add_command(list, "go", cmd_go);
+	add_command(list, "display", cmd_display);
+	add_command(list, "load_image", cmd_load_image);
+	add_command(list, "close_image", cmd_load_image);
+	add_command(list, "move_image", cmd_move_image);
+	add_command(list, "set", cmd_set);
 }
 
-void set_command(struct CommandSet* command_set, char* text, void (*func)(struct Game*, char*))
+void add_command(struct Item* list, char* text, void (*func)(struct Game*, char*))
 {
-	static int index = 0;
-	strcpy(command_set->text[index], text);
-	command_set->func[index] = func;
-	index++;
+	struct Command* command = malloc(sizeof(struct Command));
+	strcpy(command->text, text);
+	command->func = func;
+	add_after(list, command);
 }
 
 int run_command(struct Game* game, char* command)
 {
 	if(command[0] != '\0' && command[0] != '\n' && command[0] != '#')
 	{
-		int i;
 		char* arg = cut_command(command);
-		printf("Running \"%s\" \"%s\"\n", command, arg);
-		for(i = 0; i < MAX_COMMANDS; i++)
+		struct Item* cur = game->command_list;
+		printf("[%s%s %s%s%s] ", TBLUE, command, TYELLOW, arg, TDEF);
+		while(cur)
 		{
-			if(strcmp(command, game->command_set->text[i]) == 0)
+			if(strcmp(command, ((struct Command*)cur->val)->text) == 0)
 			{
-				game->command_set->func[i](game, arg);
+				((struct Command*)cur->val)->func(game, arg);
+				printf("\n");
 				return !(error[0] != '\0');
 			}
+			cur = cur->next;
 		}
-		if(i == MAX_COMMANDS)
-		{
-			sprintf(error, "unknown command : %s", command);
-			return 0;
-		}
+		sprintf(error, "unknown command : %s", command);
+		return 0;
 	}
 	return 1;
 }
 	
 void cmd_nothing(struct Game* game, char* arg)
 {
+	printf("doing absolutely fucking %snothing%s", TMAGENTA, TDEF);
 }
 
 void cmd_game_name(struct Game* game, char* arg)
 {
-	if(game->display->screen)
-		strcpy(error, "cannot change window name is display already running");
-	else
-		strcpy(game->name, arg);
-}
-
-void cmd_width(struct Game* game, char* arg)
-{
-	if(game->display->screen)
-		strcpy(error, "cannot change width is display already running");
-	else
-		game->display->width = atoi(arg);
-}
-
-void cmd_height(struct Game* game, char* arg)
-{
-	if(game->display->screen)
-		strcpy(error, "cannot change height is display already running");
-	else
-		game->display->height = atoi(arg);
+	strcpy(game->name, arg);
 }
 
 void cmd_go(struct Game* game, char* arg)
 {
-	/*char path[PATH_SIZE];*/
 	if(game->file)
 		fclose(game->file);
-	/*strcpy(path, SCENES_PATH);
-	strcpy(path + strlen(path), arg);*/
 	path_compatibilize(arg);
-	if(!(game->file = fopen(arg, "r")))
+	if(strcmp(arg, "-") == 0)
+		game->file = stdin;
+	else if(!(game->file = fopen(arg, "r")))
 		sprintf(error, "cannot open \"%s\"", arg);
-	printf("Going to file \"%s\"\n", arg);
+	else
+		printf("--> \"%s%s%s\"", TMAGENTA, arg, TDEF);
 }
 
 void cmd_display(struct Game* game, char* arg)
 {
 	if(game->display->screen)
 		strcpy(error, "display already initialized");
-	else if(game->display->width <= 0)
-		sprintf(error, "invalid or unset width : %d", game->display->width);
-	else if(game->display->height <= 0)
-		sprintf(error, "invalid or unset height : %d", game->display->height);
-	else if(!init_display(game->display))
+	else if(!init_display(game))
 		strcpy(error, "cannot create display");
 }
 
@@ -115,7 +80,8 @@ void cmd_load_image(struct Game* game, char* arg)
 	path_compatibilize(filename);
 	if(image_id_in_range(id))
 		if((game->display->images[id] = load_image(filename, 0, 0)) == NULL)
-			sprintf(error, "cannot load image %d \"%s\"", id, filename);
+			sprintf(error, "cannot load image %s%d%s \"%s%s%s\"",
+				TMAGENTA, id, TDEF, TMAGENTA, filename, TDEF);
 }
 
 void cmd_close_image(struct Game* game, char* arg)
@@ -132,6 +98,9 @@ void cmd_move_image(struct Game* game, char* arg)
 
 void cmd_set(struct Game* game, char* arg)
 {
-	replace_v_vars(game->vars, arg);;
+	char* valuestr = cut_command(arg);
+	int value = eval(game->vars, valuestr);
+	set_var(game->vars, arg, value);
+	printf("%s%s%s = %s%d%s", TGREEN, arg, TDEF, TMAGENTA, value, TDEF);
 }
 

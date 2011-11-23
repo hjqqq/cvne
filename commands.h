@@ -5,23 +5,22 @@
 #include "defines.h"
 #include "display.h"
 #include "image.h"
+#include "data.h"
 
 struct Game;
 
-struct CommandSet
+struct Command
 {
-	char text[MAX_COMMANDS][COMMAND_NAME_SIZE];
-	void (*func[MAX_COMMANDS])(struct Game*, char*);
+	char text[COMMAND_NAME_SIZE];
+	void (*func)(struct Game*, char*);
 };
 
-struct CommandSet* build_command_set(void);
-void set_command(struct CommandSet* command_set, char* text, void (*func)(struct Game*, char*));
+void build_command_list(struct Item* list);
+void add_command(struct Item* list, char* text, void (*func)(struct Game*, char*));
 int run_command(struct Game* game, char* command);
 
 void cmd_nothing(struct Game* game, char* arg);
 void cmd_game_name(struct Game* game, char* arg);   
-void cmd_width(struct Game* game, char* arg);
-void cmd_height(struct Game* game, char* arg);
 void cmd_go(struct Game* game, char* arg);
 void cmd_display(struct Game* game, char* arg);
 void cmd_load_image(struct Game* game, char* arg);

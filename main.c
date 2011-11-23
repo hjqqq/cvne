@@ -8,7 +8,8 @@
 
 int main(int argc, char** argv)
 {
-	printf("CVNE running, built on %s at %s.\n", __DATE__, __TIME__);
+	printf("%sCVNE%s running, built on %s%s%s at %s%s%s.\n",
+		TYELLOW, TDEF, TRED, __DATE__, TDEF, TRED, __TIME__, TDEF);
 	if(!al_init() || !al_init_image_addon())
 		return EXIT_FAILURE;
 	if(argc > 1)

@@ -1,11 +1,20 @@
 #!cvne
 game_name A test game
-width 800
+set width 800
 #comment
-height 600
+nothing
+set height 600
 display
 load_image 1 chocolatine/1.png
 #go scenes\scene2
-move_image 1 30 30
-set 1 v_3 v_42 v_-1 v_8192 v_12ab v_8
+#move_image 1 30 30
+#set 1 \v3 \v42 \v12ab \v8
+set var_a 24
+set var_b var_a
+set c 1
+set d 2
+set e c+d
+set f c +d
+set g c+ d
+go scenes/scene2
 
