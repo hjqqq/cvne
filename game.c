@@ -66,3 +66,8 @@ void free_game(struct Game* game)
 	}
 }*/
 
+int var_id_in_range(int id)
+{
+	return (id >= 0 && id < VARS);
+}
+

@@ -48,3 +48,29 @@ void path_compatibilize(char* path)
 	}
 }
 
+void replace_v_vars(int* vars, char* s)
+{
+	int i, j = 0;
+	char newstring[BUFFER_SIZE];
+	for(i = 0; s[i] != '\0'; i++)
+	{
+		if(s[i] == 'v' && s[i + 1] == '_')
+		{
+			int id = atoi(s + i + 2);
+			if(var_id_in_range(id))
+			{
+				sprintf(newstring + j, "%d", vars[id]);
+				i+=2;
+				while(s[i] == '0' || (s[i] >= '1' && s[i] <= '9'))
+					i++;
+				while(newstring[j] != '\0')
+					j++;
+			}
+		}
+		newstring[j] = s[i];
+		j++;
+	}
+	printf("\"%s\" -> \"%s\"\n", s, newstring);
+	strcpy(newstring, s);
+}
+

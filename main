@@ -5,4 +5,7 @@ width 800
 height 600
 display
 load_image 1 chocolatine/1.png
-go scenes\scene2
+#go scenes\scene2
+move_image 1 30 30
+set 1 v_3 v_42 v_-1 v_8192 v_12ab v_8
+

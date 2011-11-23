@@ -1,14 +1,21 @@
 #include "image.h"
 
-struct Image* load_image(char* filename)
+struct Image* load_image(char* filename, float x, float y)
 {
 	struct Image* image = malloc(sizeof(struct Image));
-	image->x = 0;
-	image->y = 0;
+	/*int i;*/
 	if(!(image->bitmap = al_load_bitmap(filename)))
 		return NULL;
-	else
-		return image;
+	/*image->centerx = al_get_bitmap_width(image->bitmap) / 2;
+	image->centery = al_get_bitmap_height(image->bitmap) / 2;
+	for(i = 0; i < 5; i++)
+	{
+		image->vars[i].value = (i == XSCALE || i == YSCALE) ? 1.0 : 0.0;
+		image->vars[i].endtime = -1.0;
+	}*/
+	image->x = x;
+	image->y = y;
+	return image;
 }
 
 void free_image(struct Image* image)
@@ -38,4 +45,23 @@ int image_loaded(struct Image** images, int id)
 		return 0;
 	}
 }
+
+void draw_image(struct Image* image)
+{
+	al_draw_bitmap(image->bitmap, image->x, image->y, 0);
+}
+
+/*void update_vars(struct ChangingValue* vars, double time)
+{
+	int i;
+	for(i = 0; i < 5; i++)
+	{
+		if(time > vars[i].endtime)
+			vars[i].value = vars[i].endvalue;
+		else
+			vars[i].value = vars[i].startvalue + 
+				(vars[i].endvalue - vars[i].startvalue) /
+				(vars[i].endtime - vars[i].starttime);
+	}
+}*/
 

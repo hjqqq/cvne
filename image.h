@@ -11,17 +11,30 @@
 #include "defines.h"
 #include "display.h"
 
+/*struct ChangingValue
+{
+	float value;
+	double starttime;
+	float startvalue;
+	double endtime;
+	float endvalue;
+};*/
+
 struct Image
 {
-	int x;
-	int y;
 	ALLEGRO_BITMAP* bitmap;
+/*	float centerx;
+	float centery;*/
+	float x;
+	float y;
 };
 
-struct Image* load_image(char* filename);
+struct Image* load_image(char* filename, float x, float y);
 void free_image(struct Image* image);
 int image_id_in_range(int id);
 int image_loaded(struct Image** images, int id);
+void draw_image(struct Image* image);
+/*void update_vars(struct ChangingValue* vars, double time);*/
 
 #endif
 

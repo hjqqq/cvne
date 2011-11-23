@@ -26,6 +26,7 @@ void run_game(char* filename);
 struct Game* initialize_game(void);
 void free_game(struct Game* game);
 /*void load_labels(struct Game* game);*/
+int var_id_in_range(int id);
 
 #endif
 

@@ -32,7 +32,12 @@ void free_display(struct Display* display)
 
 void display_display(struct Display* display)
 {
+	int i;
 	al_set_target_bitmap(al_get_backbuffer(display->screen));
 	al_clear_to_color(al_map_rgb(0, 0, 0));
+	for(i = 0; i < IMAGES; i++)
+		if(display->images[i])
+			draw_image(display->images[i]);
+	al_flip_display();
 }
 

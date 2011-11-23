@@ -18,6 +18,8 @@ struct CommandSet* build_command_set(void)
 /*	set_command(set, "label", cmd_nothing);*/
 	set_command(set, "load_image", cmd_load_image);
 	set_command(set, "close_image", cmd_load_image);
+	set_command(set, "move_image", cmd_move_image);
+	set_command(set, "set", cmd_set);
 	return set;
 }
 
@@ -112,7 +114,7 @@ void cmd_load_image(struct Game* game, char* arg)
 	int id = atoi(arg);
 	path_compatibilize(filename);
 	if(image_id_in_range(id))
-		if((game->display->images[id] = load_image(filename)) == NULL)
+		if((game->display->images[id] = load_image(filename, 0, 0)) == NULL)
 			sprintf(error, "cannot load image %d \"%s\"", id, filename);
 }
 
@@ -122,5 +124,14 @@ void cmd_close_image(struct Game* game, char* arg)
 	if(image_id_in_range(id))
 		if(image_loaded(game->display->images, id))
 			free_image(game->display->images[id]);
+}
+
+void cmd_move_image(struct Game* game, char* arg)
+{
+}
+
+void cmd_set(struct Game* game, char* arg)
+{
+	replace_v_vars(game->vars, arg);;
 }
 

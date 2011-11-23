@@ -8,6 +8,7 @@ int skip_space(char* s, int i);
 int skip_to_space(char* s, int i);
 char* strip_begin(char* s);
 void path_compatibilize(char* path);
+void replace_v_vars(int* vars, char* s);
 
 #endif
 
