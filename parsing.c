@@ -134,7 +134,6 @@ void remove_spaces(char* s)
 		s[i] = s[i + offset];
 	}
 	s[i] = '\0';
-	printf("(-> \"%s%s%s\") ", TMAGENTA, s, TDEF);
 }
 
 void check_expr(char* s)
