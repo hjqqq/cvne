@@ -8,14 +8,14 @@ void run_game(char* filename)
 	cmd_go(game, filename);
 	printf("\n");
 	if(error[0] != '\0')
-		printf("Error : %s\"%s\"%s\n", TRED, error, TDEF);
+		printf("[%serror%s] %s%s%s\n", TRED, TDEF, TRED, error, TDEF);
 	else
 	{
 		while(fgets(buffer, BUFFER_SIZE, game->file))
 		{
 			if(!run_command(game, strip_begin(buffer)))
 			{
-				printf("Error : \"%s%s%s\"\n", TRED, error, TDEF);
+				printf("[%serror%s] %s%s%s\n", TRED, TDEF, TRED, error, TDEF);
 				break;
 			}
 		}

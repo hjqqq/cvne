@@ -37,6 +37,7 @@ int run_command(struct Game* game, char* command)
 			cur = cur->next;
 		}
 		sprintf(error, "unknown command : %s", command);
+		printf("\n");
 		return 0;
 	}
 	return 1;
