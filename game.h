@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <allegro5/allegro.h>
+
 #include "defines.h"
 #include "parsing.h"
 #include "commands.h"
@@ -14,12 +16,6 @@
 
 char error[ERROR_SIZE];
 
-struct Var
-{
-	char name[VAR_NAME_SIZE];
-	int value;
-};
-
 struct Game
 {
 	struct Display* display;
@@ -27,14 +23,18 @@ struct Game
 	struct Item* vars;
 	FILE* file;
 	struct Item* command_list;
+	int* verbose;
+	double wait_time;
+	int waiting;
+	int mousex;
+	int mousey;
+	ALLEGRO_EVENT_QUEUE* event_queue;
 };
 
+int check_error(void);
 void run_game(char* filename);
 struct Game* initialize_game(void);
 void free_game(struct Game* game);
-struct Var* get_var(struct Item* list, char* name);
-void set_var(struct Item* list, char* name, int value);
-void termcolor(char* s);
 
 #endif
 

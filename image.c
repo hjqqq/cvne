@@ -5,7 +5,10 @@ struct Image* load_image(char* filename, float x, float y)
 	struct Image* image = malloc(sizeof(struct Image));
 	/*int i;*/
 	if(!(image->bitmap = al_load_bitmap(filename)))
+	{
+		free(image);
 		return NULL;
+	}
 	/*image->centerx = al_get_bitmap_width(image->bitmap) / 2;
 	image->centery = al_get_bitmap_height(image->bitmap) / 2;
 	for(i = 0; i < 5; i++)
@@ -35,15 +38,12 @@ int image_id_in_range(int id)
 		return 1;
 }
 
-int image_loaded(struct Image** images, int id)
+struct Image* image_loaded(struct Image** images, int id)
 {
-	if(images[id])
-		return 1;
-	else
-	{
+	struct Image* image = images[id];
+	if(!image)
 		sprintf(error, "image %d is not loaded", id);
-		return 0;
-	}
+	return image;
 }
 
 void draw_image(struct Image* image)
@@ -51,17 +51,48 @@ void draw_image(struct Image* image)
 	al_draw_bitmap(image->bitmap, image->x, image->y, 0);
 }
 
-/*void update_vars(struct ChangingValue* vars, double time)
+void cmd_load_image(struct Game* game, char* arg)
 {
-	int i;
-	for(i = 0; i < 5; i++)
+	char* filename = cut_command(arg);
+	int id = eval(game->vars, arg);
+	path_compatibilize(filename);
+	if(image_id_in_range(id))
 	{
-		if(time > vars[i].endtime)
-			vars[i].value = vars[i].endvalue;
-		else
-			vars[i].value = vars[i].startvalue + 
-				(vars[i].endvalue - vars[i].startvalue) /
-				(vars[i].endtime - vars[i].starttime);
+		if(game->display->images[id])
+			free_image(game->display->images[id]);
+		if(!(game->display->images[id] = load_image(filename, 0, 0)))
+			sprintf(error, "cannot load image %d \"%s\"", id, filename);
 	}
-}*/
+}
+
+void cmd_close_image(struct Game* game, char* arg)
+{
+	int id = eval(game->vars, arg);
+	if(image_id_in_range(id))
+		if(image_loaded(game->display->images, id))
+			free_image(game->display->images[id]);
+}
+
+void cmd_move_image(struct Game* game, char* arg)
+{
+	int id, x, y;
+	char* cur = cut_command(arg);
+	id = eval(game->vars, arg);
+	arg = cut_command(cur);
+	x = eval(game->vars, cur);
+	cut_command(arg);
+	y = eval(game->vars, arg);
+	if(image_id_in_range(id))
+	{
+		struct Image* image;
+		if((image = image_loaded(game->display->images, id)))
+		{
+			image->x = x;
+			image->y = y;
+			if(*game->verbose)
+				printf("image %s%d%s -> %s%d%s;%s%d%s",
+					TGREEN, id, TDEF, TMAGENTA, x, TDEF, TMAGENTA, y, TDEF);
+		}
+	}
+}
 

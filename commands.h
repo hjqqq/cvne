@@ -22,11 +22,8 @@ int run_command(struct Game* game, char* command);
 void cmd_nothing(struct Game* game, char* arg);
 void cmd_game_name(struct Game* game, char* arg);   
 void cmd_go(struct Game* game, char* arg);
-void cmd_display(struct Game* game, char* arg);
-void cmd_load_image(struct Game* game, char* arg);
-void cmd_close_image(struct Game* game, char* arg);
-void cmd_move_image(struct Game* game, char* arg);
-void cmd_set(struct Game* game, char* arg);
+void cmd_goif(struct Game* game, char* arg);
+void cmd_wait(struct Game* game, char* arg);
 
 #endif
 

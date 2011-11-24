@@ -48,44 +48,6 @@ void path_compatibilize(char* path)
 	}
 }
 
-void replace_vars_values(struct Item* vars, char* s)
-{
-	int i, j = 0, k = 0;
-	char newstring[BUFFER_SIZE];
-	for(i = 0; s[i] != '\0'; i++)
-	{
-		char varname[VAR_NAME_SIZE] = {'\0'};
-		while(((s[i] >= 'a' && s[i] <= 'z') ||
-			(s[i] >= 'A' && s[i] <= 'Z') ||
-			s[i] == '_') && j < VAR_NAME_SIZE - 1)
-		{
-			varname[k] = s[i];
-			k++; i++;
-		}
-		if(varname[0] != '\0')
-		{
-			struct Var* var;
-			varname[k] = '\0';
-			var = get_var(vars, varname);
-			if(var)
-			{
-				sprintf(newstring + j, "%d", var->value);
-				j += strlen(newstring + j);
-			}
-			else
-			{
-				sprintf(error, "unknown var \"%s\"", varname);
-				break;
-			}
-			k = 0;
-		}
-		newstring[j] = s[i];
-		j++;
-	}
-	newstring[j] = '\0';
-	strcpy(s, newstring);
-}
-
 int eval(struct Item* vars, char* s)
 {
 	int a, b, i;
@@ -103,6 +65,9 @@ int eval(struct Item* vars, char* s)
 			case '+': return a + atoi(s + i + 1);
 			case '-': return a - atoi(s + i + 1);
 			case '*': return a * atoi(s + i + 1);
+			case '&': return a && atoi(s + i + 1);
+			case '|': return a || atoi(s + i + 1);
+			case '!': return !a;
 			case '/':
 				b = atoi(s + i + 1);
 				if(b == 0)
@@ -141,8 +106,7 @@ void check_expr(char* s)
 	int i;
 	for(i = 0; s[i] != '\0'; i++)
 	{
-		if(s[i] != '0' && (s[i] < '1' || s[i] > '9') && s[i] != '%' &&
-			s[i] != '*' && s[i] != '+' && s[i] != '/' && s[i] != '-' && s[i] != '/')
+		if(strchr("01234567890*+-/%&|!", s[i]) == NULL)
 		{
 			sprintf(error, "invalid char in expr \"%s\" at pos %d : \'%c\'", s, i, s[i]);
 			break;

@@ -14,5 +14,11 @@
 #define PATH_SIZE 1024
 #define MAIN_SCENE "main"
 #define IMAGES 1024
+#define SOUNDS 1024
 #define VAR_NAME_SIZE 1024
+#define SOUND_NAME_SIZE 1024
+
+#define WINDOW_WIDTH_VAR "_width"
+#define WINDOW_HEIGHT_VAR "_height"
+#define VERBOSE_VAR "_verbose"
 

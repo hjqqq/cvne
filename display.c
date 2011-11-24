@@ -6,28 +6,32 @@ struct Display* build_display(void)
 	int i;
 	display->screen = NULL;
 	display->images = calloc(IMAGES, sizeof(struct Image*));
+	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
 		display->images[i] = NULL;
 	return display;
 }
 
-int init_display(struct Game* game)
+void init_display(struct Game* game)
 {
-	struct Var* width = get_var(game->vars, "width");
-	struct Var* height = get_var(game->vars, "height");
+	int width = get_var_value(game->vars, WINDOW_WIDTH_VAR, 0);
+	int height = get_var_value(game->vars, WINDOW_HEIGHT_VAR, 0);
 	if(width)
 	{
 		if(height)
 		{
-			game->display->screen = al_create_display(width->value, height->value);
-			return (int) game->display->screen;
+			game->display->screen = al_create_display(width, height);
+			if(game->display->screen)
+				al_register_event_source(game->event_queue,
+					al_get_display_event_source(game->display->screen));
+			else
+				sprintf(error, "cannot create display of size %d x %d", width, height);
 		}
 		else
-			sprintf(error, "height unset");
+			sprintf(error, "%s unset", WINDOW_WIDTH_VAR);
 	}
 	else
-		sprintf(error, "width unset");
-	return 0;
+		sprintf(error, "%s unset", WINDOW_HEIGHT_VAR);
 }
 
 void free_display(struct Display* display)
@@ -51,5 +55,13 @@ void display_display(struct Display* display)
 		if(display->images[i])
 			draw_image(display->images[i]);
 	al_flip_display();
+}
+
+void cmd_display(struct Game* game, char* arg)
+{
+	if(game->display->screen)
+		strcpy(error, "display already initialized");
+	else
+		init_display(game);
 }
 

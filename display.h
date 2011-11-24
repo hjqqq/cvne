@@ -9,6 +9,8 @@
 #include "game.h"
 #include "defines.h"
 #include "image.h"
+#include "sound.h"
+#include "var.h"
 
 struct Game;
 
@@ -16,12 +18,15 @@ struct Display
 {
 	ALLEGRO_DISPLAY* screen;
 	struct Image** images;
+	struct Sound** sounds;
 };
 
 struct Display* build_display(void);
-int init_display(struct Game* game);
+void init_display(struct Game* game);
 void free_display(struct Display* display);
 void display_display(struct Display* display);
+
+void cmd_display(struct Game* game, char* arg);
 
 #endif
 

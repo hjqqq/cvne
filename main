@@ -1,11 +1,16 @@
 #!cvne
+set _verbose 1
 game_name A test game
-set width 800
+set _width 800
 #comment
 nothing
-set height 600
+set _height 600
 display
-load_image 1 chocolatine/1.png
+load_image 1 chocolatine/0.png
+play_sound_loop 2 desu.wav
+wait 4
+stop_sound 2
+#move_image 1 100 100
 #go scenes\scene2
 #move_image 1 30 30
 #set 1 \v3 \v42 \v12ab \v8
@@ -16,5 +21,6 @@ set d 2
 set e c+d
 set f c +d
 set g c+ d
-go scenes/scene2
+wait 1.25
+goif 1&0 scenes/scene2
 
