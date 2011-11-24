@@ -7,7 +7,7 @@ nothing
 set _height 600
 display
 load_image 1 chocolatine/0.png
-play_sound_loop 2 desu.wav
+play_sound_loop 2 desu.ogg
 wait 4
 stop_sound 2
 #move_image 1 100 100
