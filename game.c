@@ -35,12 +35,11 @@ void run_game(char* filename)
 				case ALLEGRO_EVENT_DISPLAY_CLOSE:
 					sprintf(error, "window closed");
 					break;
-				case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-					game->waiting = 0;
-					break;
 			}
 		}
-		if(al_get_time() > game->wait_time && !game->waiting)
+		if(!game->waiting)
+			game->wait_event(game, &event);
+		else if(al_get_time() > game->wait_time)
 		{
 			if(!fgets(buffer, BUFFER_SIZE, game->file))
 				break;

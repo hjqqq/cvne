@@ -1,3 +1,7 @@
 #comment15
 #go 8
-
+#load_image 2 longcat.png
+set i i+1
+move_image 2 i+4 i+200
+wait 0.05
+goif i<100 scenes/scene2

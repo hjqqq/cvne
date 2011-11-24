@@ -79,9 +79,8 @@ void cmd_move_image(struct Game* game, char* arg)
 	char* cur = cut_command(arg);
 	id = eval(game->vars, arg);
 	arg = cut_command(cur);
-	x = eval(game->vars, cur);
-	cut_command(arg);
 	y = eval(game->vars, arg);
+	x = eval(game->vars, cur);
 	if(image_id_in_range(id))
 	{
 		struct Image* image;

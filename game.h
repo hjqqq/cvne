@@ -29,6 +29,7 @@ struct Game
 	int mousex;
 	int mousey;
 	ALLEGRO_EVENT_QUEUE* event_queue;
+	int (*wait_event)(struct Game*, ALLEGRO_EVENT*);
 };
 
 int check_error(void);

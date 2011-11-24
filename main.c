@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
 
 #include "game.h"
 
@@ -15,6 +14,8 @@ int main(int argc, char** argv)
 		!al_install_mouse() ||
 		!al_install_audio() ||
 		!al_init_acodec_addon() ||
+		!al_init_font_addon() ||
+		!al_init_ttf_addon() ||
 		!al_reserve_samples(SOUNDS))
 		return EXIT_FAILURE;
 	if(argc > 1)

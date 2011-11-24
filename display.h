@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 
 #include "game.h"
 #include "defines.h"
@@ -19,6 +20,10 @@ struct Display
 	ALLEGRO_DISPLAY* screen;
 	struct Image** images;
 	struct Sound** sounds;
+	struct MessageBox* messagebox;
+	ALLEGRO_FONT* bigfont;
+	ALLEGRO_FONT* medfont;
+	ALLEGRO_FONT* smallfont;
 };
 
 struct Display* build_display(void);

@@ -22,3 +22,14 @@
 #define WINDOW_HEIGHT_VAR "_height"
 #define VERBOSE_VAR "_verbose"
 
+#define MESSAGE_LINE_SIZE 2048
+#define MESSAGE_LINES 256
+
+#define BIGFONT_SIZE 72.0
+#define MEDFONT_SIZE 36.0
+#define SMALLFONT_SIZE 18.0
+
+#define FONT_FILE ".ttf"
+
+#define HEIGHT_BETWEEN_LINES 30
+

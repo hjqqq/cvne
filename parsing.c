@@ -68,6 +68,9 @@ int eval(struct Item* vars, char* s)
 			case '&': return a && atoi(s + i + 1);
 			case '|': return a || atoi(s + i + 1);
 			case '!': return !a;
+			case '=': return a == atoi(s + i + 1);
+			case '>': return a > atoi(s + i + 1);
+			case '<': return a < atoi(s + i + 1);
 			case '/':
 				b = atoi(s + i + 1);
 				if(b == 0)
@@ -106,7 +109,7 @@ void check_expr(char* s)
 	int i;
 	for(i = 0; s[i] != '\0'; i++)
 	{
-		if(strchr("01234567890*+-/%&|!", s[i]) == NULL)
+		if(strchr("01234567890*+-/%&|!=<>", s[i]) == NULL)
 		{
 			sprintf(error, "invalid char in expr \"%s\" at pos %d : \'%c\'", s, i, s[i]);
 			break;

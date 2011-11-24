@@ -9,6 +9,11 @@ struct Display* build_display(void)
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
 		display->images[i] = NULL;
+	display->bigfont = al_load_ttf_font(FONT_FILE, BIGFONT_SIZE, 0);
+	display->medfont = al_load_ttf_font(FONT_FILE, MEDFONT_SIZE, 0);
+	display->smallfont = al_load_ttf_font(FONT_FILE, SMALLFONT_SIZE, 0);
+	if(!display->bigfont || !display->medfont || !display->smallfont)
+		sprintf(error, "cannot load font file \"%s\"", FONT_FILE);
 	return display;
 }
 
@@ -43,6 +48,9 @@ void free_display(struct Display* display)
 		if(display->images[i])
 			free_image(display->images[i]);
 	free(display->images);
+	al_destroy_font(display->bigfont);
+	al_destroy_font(display->medfont);
+	al_destroy_font(display->smallfont);
 	free(display);
 }
 

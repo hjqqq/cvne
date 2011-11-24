@@ -3,12 +3,15 @@ set _verbose 1
 game_name A test game
 set _width 800
 #comment
+set i 4+10
 nothing
 set _height 600
 display
+load_image 2 longcat.png
 load_image 1 chocolatine/0.png
+move_image 2 10*20 10*10
 play_sound_loop 2 desu.ogg
-wait 4
+#wait 4
 stop_sound 2
 #move_image 1 100 100
 #go scenes\scene2
@@ -22,5 +25,6 @@ set e c+d
 set f c +d
 set g c+ d
 wait 1.25
-goif 1&0 scenes/scene2
+#goif 1&2 scenes/scene2
+
 

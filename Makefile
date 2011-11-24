@@ -1,7 +1,7 @@
 CC = clang
 NAME = cvne
 CFLAGS = -g -O0 -Wall -Werror -ansi -pedantic -march=native
-LDFLAGS = -lm -lallegro -lallegro_image -lallegro_audio -lallegro_acodec
+LDFLAGS = -lm -lallegro -lallegro_image -lallegro_audio -lallegro_acodec -lallegro_font -lallegro_ttf -lallegro_font -lallegro_ttf
 objects := $(patsubst %.c,%.o,$(wildcard *.c))
 
 $(NAME) : $(objects)
