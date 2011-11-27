@@ -37,7 +37,7 @@ void run_game(char* filename)
 					break;
 			}
 		}
-		if(!game->waiting)
+		if(game->waiting)
 			game->wait_event(game, &event);
 		else if(al_get_time() > game->wait_time)
 		{

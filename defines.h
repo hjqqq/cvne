@@ -29,7 +29,7 @@
 #define MEDFONT_SIZE 36.0
 #define SMALLFONT_SIZE 18.0
 
-#define FONT_FILE ".ttf"
+#define FONT_FILE "VeraMono.ttf"
 
 #define HEIGHT_BETWEEN_LINES 30
 

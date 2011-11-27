@@ -82,8 +82,7 @@ void cmd_go(struct Game* game, char* arg)
 void cmd_goif(struct Game* game, char* arg)
 {
 	char* filename = cut_command(arg);
-	int value = eval(game->vars, arg);
-	if(value)
+	if(eval(game->vars, arg))
 		cmd_go(game, filename);
 }
 

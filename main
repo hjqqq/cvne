@@ -12,7 +12,7 @@ load_image 1 chocolatine/0.png
 move_image 2 10*20 10*10
 play_sound_loop 2 desu.ogg
 #wait 4
-stop_sound 2
+#stop_sound 2
 #move_image 1 100 100
 #go scenes\scene2
 #move_image 1 30 30

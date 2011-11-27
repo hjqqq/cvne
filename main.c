@@ -14,10 +14,10 @@ int main(int argc, char** argv)
 		!al_install_mouse() ||
 		!al_install_audio() ||
 		!al_init_acodec_addon() ||
-		!al_init_font_addon() ||
 		!al_init_ttf_addon() ||
 		!al_reserve_samples(SOUNDS))
 		return EXIT_FAILURE;
+	al_init_font_addon();
 	if(argc > 1)
 		run_game(argv[1]);
 	else

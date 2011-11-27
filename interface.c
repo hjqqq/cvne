@@ -1,6 +1,6 @@
 #include "interface.h"
 
-int coord_in_rect(int x, int y, struct Choice* choice)
+int coord_in_choice(int x, int y, struct Choice* choice)
 {
 	return (x >= choice->x) && (y >= choice->y)
 		&& (x < choice->x + choice->messagebox->choicewidth)
@@ -10,7 +10,8 @@ int coord_in_rect(int x, int y, struct Choice* choice)
 struct MessageBox* init_message_box(int dwidth, int dheight)
 {
 	struct MessageBox* messagebox = malloc(sizeof(struct MessageBox));
-	messagebox->image = NULL;
+	messagebox->image = -1;
+	messagebox->choiceimage = -1;
 	messagebox->x = 0;
 	messagebox->y = 0;
 	messagebox->choicewidth = 0;
@@ -20,10 +21,6 @@ struct MessageBox* init_message_box(int dwidth, int dheight)
 
 void free_message_box(struct MessageBox* messagebox)
 {
-	if(messagebox->choiceimage)
-		free_image(messagebox->choiceimage);
-	if(messagebox->image)
-		free_image(messagebox->image);
 	free(messagebox);
 }
 
