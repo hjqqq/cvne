@@ -117,3 +117,13 @@ void check_expr(char* s)
 	}
 }
 
+ALLEGRO_COLOR str_to_color(char* s)
+{
+	char* r, g, b, a;
+	r = s;
+	g = cut_command(r);
+	b = cut_command(g);
+	a = cut_command(b);
+	
+}
+

@@ -24,7 +24,11 @@ set d 2
 set e c+d
 set f c +d
 set g c+ d
-wait 1.25
+message hello mark
+message lol
+show_message
+set i 42
+#wait 1.25
 #goif 1&2 scenes/scene2
 
 

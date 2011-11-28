@@ -6,6 +6,7 @@
 #include "display.h"
 #include "image.h"
 #include "data.h"
+#include "interface.h"
 
 struct Game;
 

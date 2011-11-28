@@ -17,7 +17,6 @@ void run_game(char* filename)
 	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
 	game->event_queue = al_create_event_queue();
 	al_register_event_source(game->event_queue, al_get_timer_event_source(timer));
-	al_register_event_source(game->event_queue, al_get_mouse_event_source());
 	al_start_timer(timer);
 	cmd_go(game, filename);
 	if(*game->verbose) printf("\n");
@@ -26,20 +25,22 @@ void run_game(char* filename)
 		ALLEGRO_EVENT event;
 		if(al_get_next_event(game->event_queue, &event))
 		{
+			if(game->wait)
+				game->wait(game, &event);
 			switch(event.type)
 			{
 				case ALLEGRO_EVENT_TIMER:
 					if(game->display->screen)
-						display_display(game->display);
+						display_display(game);
 					break;
 				case ALLEGRO_EVENT_DISPLAY_CLOSE:
 					sprintf(error, "window closed");
 					break;
 			}
 		}
-		if(game->waiting)
-			game->wait_event(game, &event);
-		else if(al_get_time() > game->wait_time)
+		else if(game->wait)
+			game->wait(game, NULL);
+		if(!game->wait)
 		{
 			if(!fgets(buffer, BUFFER_SIZE, game->file))
 				break;
@@ -66,7 +67,7 @@ struct Game* initialize_game(void)
 	for(i = 0; i < IMAGES; i++)
 		game->display->images[i] = NULL;
 	game->file = NULL;
-	game->waiting = 0;
+	game->wait = NULL;
 	game->command_list = build_first_item(malloc(sizeof(struct Command)));
 	strcpy(((struct Command*)game->command_list->val)->text, "nothing");
 	((struct Command*)game->command_list->val)->func = cmd_nothing;

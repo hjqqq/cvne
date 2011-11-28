@@ -9,10 +9,8 @@ struct Display* build_display(void)
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
 		display->images[i] = NULL;
-	display->bigfont = al_load_ttf_font(FONT_FILE, BIGFONT_SIZE, 0);
-	display->medfont = al_load_ttf_font(FONT_FILE, MEDFONT_SIZE, 0);
-	display->smallfont = al_load_ttf_font(FONT_FILE, SMALLFONT_SIZE, 0);
-	if(!display->bigfont || !display->medfont || !display->smallfont)
+	display->font = al_load_ttf_font(FONT_FILE, DEFAULT_FONT_SIZE, 0);
+	if(!display->font)
 		sprintf(error, "cannot load font file \"%s\"", FONT_FILE);
 	return display;
 }
@@ -27,8 +25,13 @@ void init_display(struct Game* game)
 		{
 			game->display->screen = al_create_display(width, height);
 			if(game->display->screen)
+			{
 				al_register_event_source(game->event_queue,
 					al_get_display_event_source(game->display->screen));
+				al_register_event_source(game->event_queue,
+					al_get_mouse_event_source());
+				game->display->messagebox = init_messagebox(game->display->font, width, height);
+			}
 			else
 				sprintf(error, "cannot create display of size %d x %d", width, height);
 		}
@@ -48,20 +51,35 @@ void free_display(struct Display* display)
 		if(display->images[i])
 			free_image(display->images[i]);
 	free(display->images);
-	al_destroy_font(display->bigfont);
-	al_destroy_font(display->medfont);
-	al_destroy_font(display->smallfont);
+	al_destroy_font(display->font);
 	free(display);
 }
 
-void display_display(struct Display* display)
+void display_display(struct Game* game)
 {
 	int i;
+	struct Display* display = game->display;
 	al_set_target_bitmap(al_get_backbuffer(display->screen));
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	for(i = 0; i < IMAGES; i++)
-		if(display->images[i])
+		if(display->images[i] != 0 && i != display->messagebox->image)
 			draw_image(display->images[i]);
+	if(display->messagebox->display)
+	{
+		struct MessageBox* messagebox = display->messagebox;
+		struct Item* cur = messagebox->lines;
+		if(messagebox->image >= 0 && messagebox->image < IMAGES)
+			draw_image(display->images[i]);
+		while(cur)
+		{
+			al_draw_text(display->font, al_map_rgb(0, 255, 255),
+				messagebox->x,
+				messagebox->y + messagebox->lineheight * ((struct Line*)cur->val)->pos,
+				0,
+				((struct Line*)cur->val)->text);
+			cur = cur->next;
+		}
+	}
 	al_flip_display();
 }
 

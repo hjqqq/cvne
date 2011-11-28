@@ -13,6 +13,7 @@
 #include "image.h"
 #include "sound.h"
 #include "var.h"
+#include "interface.h"
 
 struct Game;
 
@@ -22,15 +23,13 @@ struct Display
 	struct Image** images;
 	struct Sound** sounds;
 	struct MessageBox* messagebox;
-	ALLEGRO_FONT* bigfont;
-	ALLEGRO_FONT* medfont;
-	ALLEGRO_FONT* smallfont;
+	ALLEGRO_FONT* font;
 };
 
 struct Display* build_display(void);
 void init_display(struct Game* game);
 void free_display(struct Display* display);
-void display_display(struct Display* display);
+void display_display(struct Game* game);
 
 void cmd_display(struct Game* game, char* arg);
 

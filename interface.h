@@ -9,35 +9,41 @@
 #include "game.h"
 #include "display.h"
 
-struct Choice
+struct Display;
+
+struct Line
 {
-	char text[MESSAGE_LINE_SIZE];
+	int pos;
+	int width;
 	char target[PATH_SIZE];
-	float x;
-	float y;
+	char text[MESSAGE_LINE_SIZE];
 	struct MessageBox* messagebox;
 };
 
 struct MessageBox
 {
 	int image;
-	int choiceimage;
 	float x;
 	float y;
-	float choicewidth;
-	float choiceheight;
-	char lines[MESSAGE_LINES][MESSAGE_LINE_SIZE];
-	struct Choice (*choices)[MESSAGE_LINES];
+	int i;
+	struct Item* lines;
+	int display;
+	int lineheight;
 };
 
-int coord_in_choice(int x, int y, struct Choice* choice);
-struct MessageBox* init_message_box(int dwidth, int dheight);
-void free_message_box(struct MessageBox* messagebox);
+int coord_in_choice(int x, int y, struct Line* line);
+struct MessageBox* init_messagebox(ALLEGRO_FONT* font, int dwidth, int dheight);
+void free_messagebox(struct MessageBox* messagebox);
+void add_message(struct Display* display, char* text);
+void free_line(void* ptr);
+void empty_lines(struct MessageBox* messagebox);
 
 void waitforinput(struct Game* game, ALLEGRO_EVENT* event);
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event);
+void waitfortime(struct Game* game, ALLEGRO_EVENT* event);
 
 void cmd_message(struct Game* game, char* arg);
+void cmd_show_message(struct Game* game, char* arg);
 
 #endif
 

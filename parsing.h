@@ -12,6 +12,7 @@ void path_compatibilize(char* path);
 int eval(struct Item* vars, char* s);
 void remove_spaces(char* s);
 void check_expr(char* s);
+ALLEGRO_COLOR str_to_color(char* s);
 
 #endif
 

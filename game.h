@@ -24,12 +24,11 @@ struct Game
 	FILE* file;
 	struct Item* command_list;
 	int* verbose;
-	double wait_time;
-	int waiting;
 	int mousex;
 	int mousey;
 	ALLEGRO_EVENT_QUEUE* event_queue;
-	int (*wait_event)(struct Game*, ALLEGRO_EVENT*);
+	void (*wait)(struct Game*, ALLEGRO_EVENT*);
+	double wait_time;
 };
 
 int check_error(void);

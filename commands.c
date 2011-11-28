@@ -14,6 +14,8 @@ void build_command_list(struct Item* list)
 	add_command(list, "play_sound", cmd_play_sound);
 	add_command(list, "play_sound_loop", cmd_play_sound_loop);
 	add_command(list, "stop_sound", cmd_stop_sound);
+	add_command(list, "message", cmd_message);
+	add_command(list, "show_message", cmd_show_message);
 }
 
 void add_command(struct Item* list, char* text, void (*func)(struct Game*, char*))
@@ -90,6 +92,7 @@ void cmd_wait(struct Game* game, char* arg)
 {
 	double time = atof(arg);
 	game->wait_time = al_get_time() + time;
+	game->wait = waitfortime;
 	if(*game->verbose)
 		printf("waiting %s%f%s seconds", TMAGENTA, time, TDEF);
 }
