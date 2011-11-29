@@ -17,6 +17,14 @@
 
 struct Game;
 
+struct Color
+{
+	int* r;
+	int* g;
+	int* b;
+	int* a;
+};
+
 struct Display
 {
 	ALLEGRO_DISPLAY* screen;
