@@ -14,16 +14,9 @@
 #include "sound.h"
 #include "var.h"
 #include "interface.h"
+#include "color.h"
 
 struct Game;
-
-struct Color
-{
-	char r;
-	char g;
-	char b;
-	char a;
-};
 
 struct Display
 {
@@ -32,6 +25,7 @@ struct Display
 	ALLEGRO_DISPLAY* screen;
 	struct Image** images;
 	struct Sound** sounds;
+	struct Color* colors;
 	struct MessageBox* messagebox;
 	ALLEGRO_FONT* font;
 };

@@ -1,7 +1,12 @@
 #include "commands.h"
 
-void build_command_list(struct Item* list)
-{	
+struct Item* build_command_list(void)
+{
+	struct Command* firstcommand = malloc(sizeof(struct Command));
+	struct Item* list;
+	strcpy(firstcommand->text, "nothing");
+	firstcommand->func = cmd_nothing;
+	list = build_first_item(firstcommand);
 	add_command(list, "game_name", cmd_game_name);
 	add_command(list, "go", cmd_go);
 	add_command(list, "display", cmd_display);
@@ -16,6 +21,8 @@ void build_command_list(struct Item* list)
 	add_command(list, "stop_sound", cmd_stop_sound);
 	add_command(list, "message", cmd_message);
 	add_command(list, "show_message", cmd_show_message);
+	add_command(list, "clear_lines", cmd_clear_lines);
+	return list;
 }
 
 void add_command(struct Item* list, char* text, void (*func)(struct Game*, char*))

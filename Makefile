@@ -28,3 +28,6 @@ test:
 	make
 	./$(NAME)
 
+debug:
+	gdb --eval-command=run --batch ./$(NAME)
+

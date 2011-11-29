@@ -54,24 +54,14 @@ void run_game(char* filename)
 
 struct Game* initialize_game(void)
 {
-	int i;
 	struct Game* game = malloc(sizeof(struct Game));
 	game->display = build_display();
-	game->display->images = calloc(IMAGES, sizeof(struct Image*));
+	game->vars = build_special_vars(game);
+	game->command_list = build_command_list();
 	game->name[0] = '\0';
 	game->wait_time = 0.0;
-	game->vars = build_first_item(malloc(sizeof(struct Var)));
-	strcpy(((struct Var*)game->vars->val)->name, "null");
-	((struct Var*)game->vars->val)->value = 0;
-	for(i = 0; i < IMAGES; i++)
-		game->display->images[i] = NULL;
 	game->file = NULL;
 	game->wait = NULL;
-	game->command_list = build_first_item(malloc(sizeof(struct Command)));
-	strcpy(((struct Command*)game->command_list->val)->text, "nothing");
-	((struct Command*)game->command_list->val)->func = cmd_nothing;
-	build_command_list(game->command_list);
-	build_special_vars(game);
 	return game;
 }
 

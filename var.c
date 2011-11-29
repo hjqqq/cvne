@@ -68,16 +68,28 @@ void replace_vars_values(struct Item* vars, char* s)
 	strcpy(s, newstring);
 }
 
-void setbind(struct Item* list, char* name, int value, int** bind)
+int* setbind(struct Item* list, char* name, int value)
 {
-	*bind = &(set_var(list, name, value)->value);
+	return &(set_var(list, name, value)->value);
 }
 
-void build_special_vars(struct Game* game)
+struct Item* build_special_vars(struct Game* game)
 {
-	setbind(game->vars, "_width", _WIDTH_DEFAULT, &game->display->width);
-	setbind(game->vars, "_height", _HEIGHT_DEFAULT, &game->display->height);
-	setbind(game->vars, "_verbose", _VERBOSE_DEFAULT, &game->verbose);
+	struct Var* firstvar = malloc(sizeof(struct Var));
+	struct Item* list;
+	strcpy(firstvar->name, "null");
+	firstvar->value = 0;
+	list = build_first_item(firstvar);
+	game->display->width = setbind(list, "_width", 640);
+	game->display->height = setbind(list, "_height", 480);
+	game->verbose = setbind(list, "_verbose", 1);
+	game->display->messagebox->message_color = setbind(list, "_message_color", -1);
+	game->display->messagebox->choice_color = setbind(list, "_choice_color", -1);
+	game->display->messagebox->message_bg_color = setbind(list, "_message_bg_color", -1);
+	game->display->messagebox->choice_bg_color = setbind(list, "_choice_bg_color", -1);
+	game->display->messagebox->x = setbind(list, "_messagebox_x", 0);
+	game->display->messagebox->y = setbind(list, "_messagebox_y", 0);
+	return list;
 }
 
 void cmd_set(struct Game* game, char* arg)

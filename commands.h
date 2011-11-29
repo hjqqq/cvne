@@ -16,7 +16,7 @@ struct Command
 	void (*func)(struct Game*, char*);
 };
 
-void build_command_list(struct Item* list);
+struct Item* build_command_list(void);
 void add_command(struct Item* list, char* text, void (*func)(struct Game*, char*));
 int run_command(struct Game* game, char* command);
 

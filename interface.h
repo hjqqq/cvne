@@ -23,12 +23,16 @@ struct Line
 struct MessageBox
 {
 	int image;
-	float x;
-	float y;
+	int* x;
+	int* y;
 	int i;
 	struct Item* lines;
 	int display;
 	int lineheight;
+	int* message_color;
+	int* choice_color;
+	int* message_bg_color;
+	int* choice_bg_color;
 };
 
 int coord_in_choice(int x, int y, struct Line* line);
@@ -44,6 +48,7 @@ void waitfortime(struct Game* game, ALLEGRO_EVENT* event);
 
 void cmd_message(struct Game* game, char* arg);
 void cmd_show_message(struct Game* game, char* arg);
+void cmd_clear_lines(struct Game* game, char* arg);
 
 #endif
 

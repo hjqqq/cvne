@@ -29,7 +29,8 @@ display
 	set e c+d
 	set f c +d
 	set g c+ d
-	message hello mark
+	play_sound 4 hellobob.ogg
+	message hello bob
 	message lol
 	show_message
 	set i 42

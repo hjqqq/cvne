@@ -5,18 +5,16 @@ int coord_in_choice(int x, int y, struct Line* line)
 	if(line->target[0] == '\0')
 		return 0;
 	else
-		return x >= line->messagebox->x &&
-			y >= line->messagebox->y + line->messagebox->lineheight * line->pos &&
-			x < line->messagebox->x + line->width &&
-			y < line->messagebox->y + line->messagebox->lineheight * (line->pos + 1);
+		return x >= *line->messagebox->x &&
+			y >= *line->messagebox->y + line->messagebox->lineheight * line->pos &&
+			x < *line->messagebox->x + line->width &&
+			y < *line->messagebox->y + line->messagebox->lineheight * (line->pos + 1);
 }
 
 struct MessageBox* init_messagebox(ALLEGRO_FONT* font)
 {
 	struct MessageBox* messagebox = malloc(sizeof(struct MessageBox));
 	messagebox->image = -1;
-	messagebox->x = 0;
-	messagebox->y = 0;
 	messagebox->lineheight = al_get_font_line_height(font);
 	messagebox->display = 0;
 	messagebox->lines = NULL;
@@ -39,7 +37,7 @@ void add_message(struct Display* display, char* text)
 	display->messagebox->i++;
 	line->width = al_get_text_width(display->font, text);
 	if(display->messagebox->lines)
-		add_after((void*) line, display->messagebox->lines);
+		add_after(display->messagebox->lines, (void*) line);
 	else
 		display->messagebox->lines = build_first_item((void*) line);
 }
@@ -66,6 +64,8 @@ void waitforinput(struct Game* game, ALLEGRO_EVENT* event)
 			case ALLEGRO_EVENT_KEY_DOWN: game->wait = NULL;
 		}
 	}
+	if(!game->wait)
+		cmd_clear_lines(game, "");
 }
 
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event)
@@ -100,5 +100,10 @@ void cmd_show_message(struct Game* game, char* s)
 {
 	game->display->messagebox->display = 1;
 	game->wait = waitforinput;
+}
+
+void cmd_clear_lines(struct Game* game, char* s)
+{
+	empty_lines(game->display->messagebox);
 }
 
