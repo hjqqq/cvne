@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CVNE scripting langage manual</title>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<style>
+td		{ border:1px solid gray; padding:3px; }
+table	{ border-collapse:collapse; }
+code	{ color:black; background-color:#bbb; border-radius:4px; }
+		</style>
+	</head>
+	<body>
+		<h1>CVNE scripting langage manual</h1>
+		<h2>Introduction</h2>
+		<p>
+			CVNE -C Visual Novel Engine- is an attempt to make a fully fonctionnal
+			visual novel in C using allegro. It is supposed to be usable by anyone.
+			So I thought I would make a basic scripting langage, very easy to
+			understand, and inspired from the RPG Maker series.<br />
+			It is able to <!-- the game --> handle variables, basic expressions,
+			indexing sounds and images, and a dynamic message/choice list.
+		</p>
+		<h2>The variables</h2>
+		<p>
+			The number of variables is not limited. Each variable has a name and a
+			value. The name can be anything, but must contain only letters from a to z,
+			A to Z, or underscore (_). The command to set a variable is prettu simple :<br />
+			<code>set &lt;variable name&gt; &lt;expression or value&gt;</code><br />
+			The value can be any integer that a C <code>int</code> can contain, positive or
+			negative. On my computer, that is from -2147483648 to 2147483647.
+			If you put an expression, it will only parse <strong>one</strong> operator and
+			the first <strong>two</strong> numbers. So if you write <code>1+2+3</code>, it
+			will only read <code>1+2</code> and set the variable to three.<br />
+			You can put previously defined variables in you expressions.<br />
+			Here is an exhaustive list of implemented operators and what the do :
+			<table>
+				<thead>
+					<td>Operator</td>
+					<td>Function</td>
+					<td>Example</td>
+				</thead>
+				<tr>
+					<td><code>a <strong>+</strong> b</code></td>
+					<td>Adds a to b.</td>
+					<td><code>1 + 2</code> = 3</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>-</strong> b</code></td>
+					<td>Susbtracts b to a</td>
+					<td><code>4 - 6</code> = -2</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>*</strong> b</code></td>
+					<td>Multiplies a by b</code></td>
+					<td><code>6 * 7</code> = 42</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>/</strong> b</code></td>
+					<td>Divides a by b. Stops the program if b is 0.</td>
+					<td><code>7 / 2</code> = 3</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>%</strong> b</code></td>
+					<td>Moduloes a by b. Stops the program if b is 0.</td>
+					<td><code>7 % 2</code> = 1</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>&</strong> b</code></td>
+					<td>The logical AND operator.</td>
+					<td><code>3 &amp; 0</code> = 0</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>|</strong> b</code></td>
+					<td>The logical OR operator.</td>
+					<td><code>3 | 0</code> = 1</td>
+				</tr>
+				<tr>
+					<td><code>a ! b</code></td>
+					<td>Returns NOT a. Ignores b.</td>
+					<td><code>0 ! anything</code> = 1</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>=</strong> b</code></td>
+					<td>Returns 1 if a is equal to b.</td>
+					<td><code>3 = 3</code> = 1</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>&gt;</strong> b</code></td>
+					<td>Returns 1 if a is strictly greater than b.</td>
+					<td><code>3 &gt; 4</code> = 0</td>
+				</tr>
+				<tr>
+					<td><code>a <strong>&lt;</strong> b</code></td>
+					<td>Returns 1 if a is strictly lower than b.</td>
+					<td><code>3 &lt; 4</code> = 1</td>
+				</tr>
+			</table>
+			Other operators and more complex expressions could be added later.
+			If you omit a variable, like writing <code>1+</code> or <code>+2</code> instead
+			of <code>1+2</code>, the omitted value will automatically be 0 (as of the C
+			<code>atoi()</code> function).
+		</p>
+		<h2>Special variables</h2>
+		<p>
+			Special variables are variables that are already set to a default value,
+			but that can be changed like any other variable with the <code>set</code>
+			command. The begin the an underscore (_). Here is an exhaustive list :<br />
+			Note : brackets ([]) means that these are actually multiple variables, but we
+			didn't write every single one separately for convenience.<br />
+			Note : for colors, <code>r,g,b,a</code> refer to red, green, blue, and alpha
+			(transparency). They are all from 0 to 255.
+			<table>
+				<thead>
+					<td>Variable name</td>
+					<td>Default value</td>
+					<td>Description</td>
+				</tr>
+				<tr>
+					<td><code>_width</code></td>
+					<td>640</td>
+					<td>The window width.</td>
+				</tr>
+				<tr>
+					<td><code>_height</code></td>
+					<td>480</td>
+					<td>The window height</td>
+				</tr>
+				<tr>
+					<td><code>_verbose</code></td>
+					<td>1</td>
+					<td>Tells the program if it has to print everything it's doing to the console.</td>
+				</tr>
+				<tr>
+					<td><code>_message_image</code></td>
+					<td>-1</td>
+					<td>The ID of the background image of messages. None if not in range.</td>
+				</tr>
+				<tr>
+					<td><code>_messagebox_x</code> and <code>_messagebox_y</code></td>
+					<td>0 and 0</td>
+					<td>The position of the message box.</td>
+				</tr>
+				<tr>
+					<td><code>_message_color_[r,g,b,a]</code></td>
+					<td>0,255,255,255</td>
+					<td>These three variables define the color of text messages.</td>
+				</tr>
+				<tr>
+					<td><code>_choice_color_[r,g,b,a]</code></td>
+					<td>255,0,0</td>
+					<td>The color of choice texts.</td>
+				</tr>
+				<tr>
+					<td><code>_message_bg_color_[r,g,b,a]</code></td>
+					<td>0,0,0,0</td>
+					<td>The background color of normal text messages.</td>
+				</tr>
+				<tr>
+					<td><code>_choice_bg_color_[r,g,b,a]</code></td>
+					<td>255,255,255,127</td>
+					<td>The background color of choice texts</td>
+				</tr>
+				<tr>
+					<td><code>_savable</code></td>
+					<td>1</td>
+					<td>Tells if the user is allowed to save the game.</td>
+				</tr>
+			</table>
+		</p>
+		<h2>Images and sounds</h2>
+		<p>
+			Images and sounds are -for the moment- limited in their number. They are
+			each identified by a number, typically between 0 and 1024. That means you
+			can have at most 1024 sounds and 1024 images loaded at the same time.
+			Each of these resources can be either loaded or not. If you try to operate
+			on a resource that hasn't been loaded, the interpreter will scream at you.
+		</p>
+		<h2>Paths</h2>
+		<p>
+			All paths are made compatible for the OS CVNE is built on. Slashes will become
+			backslashes on windows and backslashes will become slashes on unix systems.
+		</p>
+		<blockquote>
+			It's a Unix system ! I know this !
+		</blockquote>
+		<h2>Messages and choices</h2>
+		<p>
+			As any visual novel would, CVNE allows the display of messages and choices.
+			Here is how I -and Erol helped me with some ideas, thanks again- decided to
+			implement it :<br />
+			The <code>message</code> adds a line of text to the message that will be displayed
+			after by using <code>show_message</code>. After the execution of
+			<code>show_message</code>, the lines will be deleted to allow a fresh new message
+			to be written. The user can display the number of messages he wants, and
+			the lines that will actually be displayed only depends on the messagebox settings
+			and the size of the font. The <code>choice</code> command acts like the
+			<code>message</code> command, except it also makes the lines clickable, to allow
+			the player to make choices.
+		</p>
+		<h2>Commands</h2>
+		<p>
+			Everything is done by using commands. Here is an exhaustive list of commands
+			that are or that will be implemented :
+			<table>
+				<thead>
+					<td>Command</td>
+					<td>Description</td>
+					<td>Example</td>
+				</thead>
+				<tr>
+					<td><code>set &lt;variable name&gt; &lt;expression or value&gt;</code></td>
+					<td>Sets a variable to the specified value or expression.</td>
+					<td><code>set i 1+2</code> sets the variables <code>i</code> to the value <code>3</code></td>
+				</tr>
+				<tr>
+					<td><code>game_name &gt;string&lt;</code></td>
+					<td>Sets the window name to the specified string. Does nothing ATM.</td>
+					<td><code>game_name My amazing super visual novel !</code></td>
+				</tr>
+				<tr>
+					<td><code>go &lt;file name&gt;</code></td>
+					<td>Jumps to the first line of the file specified by <code>file name</code></td>
+					<td><code>go scenes/scene2</code></td>
+				</tr>
+				<tr>
+					<td><code>goif &lt;expression or value&gt; &lt;file name&gt;</code></td>
+					<td>Goes to <code>file name</code> as <code>go</code> would, but only if the expression or value is not 0.</td>
+					<td><code>goif collected_keys&gt;3 scenes/end_game</code></td>
+				<tr>
+					<td><code>display</code></td>
+					<td>Starts the graphical display, with a size defined by <code>_width</code> and <code>_height</code></td>
+					<td><code>display</code></td>
+				</tr>
+				<tr>
+					<td><code>load_image &lt;image ID&gt; &lt;file name&gt;</code></td>
+					<td>Loads the image specified by <code>file name</code> as image number <code>image ID</code></td>
+					<td><code>load_image 42 longcat.png</code></td>
+				</tr>
+				<tr>
+					<td><code>close_image &lt;image ID&gt;</code></td>
+					<td>Unloads the image number <code>image ID</code></td>
+					<td><code>close_image 42</code></td>
+				</tr>
+				<tr>
+					<td><code>move_image &lt;x&gt; &lt;y&gt;</code></td>
+					<td>Moves the image to the specified coordinates.</td>
+					<td><code>move_images 42 200 300</code></td>
+				</tr>
+				<tr>
+					<td><code>wait &lt;time&gt;</code></td>
+					<td>Waits <code>time</code> seconds before reading the next instruction.</td>
+					<td><code>wait 1.5</code></td>
+				</tr>
+				<tr>
+					<td><code>play_sound &lt;sound ID&gt; &lt;file name&gt;</code></td>
+					<td>Loads the sound file <code>file name</code> as the sound number <code>sound ID</code> and starts playing it.</td>
+					<td><code>play_sound 9 desu.ogg</code><td>
+				</tr>
+				<tr>
+					<td><code>play_sound_loop &lt;sound ID&gt; &lt;file name&gt;</code></td>
+					<td>As <code>play_sound</code>, but when plays the sound in a loop.</td>
+					<td><code>play_sound_loop 14 mgs3-maintheme.ogg</code></td>
+				</tr>
+				<tr>
+					<td><code>stop_sound &lt;sound ID&gt;</code></td>
+					<td>Stops the sound number <code>sound ID</code>, whether it is playing in a loop or not.</td>
+					<td><code>stop_sound 14</code></td>
+				</tr>
+				<tr>
+					<td><code>message &lt;text&gt;</code></td>
+					<td>Adds a line of text to the message.</td>
+					<td><code>message Oh why, hello there my good sir !</code></td>
+				</tr>
+				<tr>
+					<td><code>choice &lt;file name&gt;</code></td>
+					<td>Adds a clickable line of text to the message. If clicked, the program will jump to <code>file name</code></td>
+					<td><code>choice scenes/h-scene5 Oh my, you look quite beautiful today.</code></td>
+				</tr>
+				<tr>
+					<td><code>show_message</code></td>
+					<td>Actually displays the message written with <code>message</code> and <code>choice</code>, and waits for an action from the player.</td>
+					<td><code>show_message</code></td>
+				</tr>
+				<tr>
+					<td><code>save &lt;file name&gt;</code></td>
+					<td>Saves every data the program has loaded, to be loaded afterwards.</td>
+					<td><code>save saves/save_file_fourty_thousand</code></td>
+				</tr>
+				<tr>
+					<td><code>load &lt;file name&gt;</code></td>
+					<td>Loads a previously saved game.</td>
+					<td><code>load saves/save_file_nineteen_hundred</code></td>
+				</tr>
+				<tr>
+					<td><code>quit</code></td>
+					<td>Quits the program.</td>
+					<td><code>quit</code></td>
+				</tr>
+				<tr>
+					<td><code>fade_in &lt;time&gt;</code></td>
+					<td>Turns the screen from normal to black in <code>time</code> seconds.</td>
+					<td><code>fade_in 2.2451</code></td>
+				</tr>
+				<tr>
+					<td><code>fade_out &lt;time&gt;</code></td>
+					<td>Turns the screen from black to normal in <code>time</code> seconds.</td>
+					<td><code>fade_out 1</code></td>
+				</tr>
+				<tr>
+					<td><code>set_font &lt;size&gt; &lt;file name&gt;</code></td>
+					<td>Changes the font used for the messages</td>
+					<td><code>set_font 33 ComicSansMS.ttf</code></td>
+				</tr>
+			</table>
+		</p>
+	</body>
+</html>
+

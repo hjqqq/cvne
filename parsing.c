@@ -124,6 +124,6 @@ ALLEGRO_COLOR str_to_color(char* s)
 	g = cut_command(r);
 	b = cut_command(g);
 	a = cut_command(b);
-	
+	return al_map_rgba(atoi(r), atoi(g), atoi(b), atoi(a));
 }
 
