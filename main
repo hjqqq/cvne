@@ -15,7 +15,7 @@ display
 	move_image 2 250 180
 	play_sound_loop 2 desu.ogg
 	
-	wait 4
+	wait 1
 
 	#stop_sound 2
 	#move_image 1 100 100

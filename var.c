@@ -17,7 +17,7 @@ int get_var_value(struct Item* list, char* name, int default_value)
 	return var ? var->value : default_value;
 }
 
-void set_var(struct Item* list, char* name, int value)
+struct Var* set_var(struct Item* list, char* name, int value)
 {
 	struct Var* var = get_var(list, name);
 	if(!var)
@@ -27,6 +27,7 @@ void set_var(struct Item* list, char* name, int value)
 		add_after(list, var);
 	}
 	var->value = value;
+	return var;
 }
 
 void replace_vars_values(struct Item* vars, char* s)
@@ -65,6 +66,18 @@ void replace_vars_values(struct Item* vars, char* s)
 	}
 	newstring[j] = '\0';
 	strcpy(s, newstring);
+}
+
+void setbind(struct Item* list, char* name, int value, int** bind)
+{
+	*bind = &(set_var(list, name, value)->value);
+}
+
+void build_special_vars(struct Game* game)
+{
+	setbind(game->vars, "_width", _WIDTH_DEFAULT, &game->display->width);
+	setbind(game->vars, "_height", _HEIGHT_DEFAULT, &game->display->height);
+	setbind(game->vars, "_verbose", _VERBOSE_DEFAULT, &game->verbose);
 }
 
 void cmd_set(struct Game* game, char* arg)

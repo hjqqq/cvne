@@ -17,29 +17,18 @@ struct Display* build_display(void)
 
 void init_display(struct Game* game)
 {
-	int width = get_var_value(game->vars, WINDOW_WIDTH_VAR, 0);
-	int height = get_var_value(game->vars, WINDOW_HEIGHT_VAR, 0);
-	if(width)
+	game->display->screen = al_create_display(*game->display->width, *game->display->height);
+	if(game->display->screen)
 	{
-		if(height)
-		{
-			game->display->screen = al_create_display(width, height);
-			if(game->display->screen)
-			{
-				al_register_event_source(game->event_queue,
-					al_get_display_event_source(game->display->screen));
-				al_register_event_source(game->event_queue,
-					al_get_mouse_event_source());
-				game->display->messagebox = init_messagebox(game->display->font, width, height);
-			}
-			else
-				sprintf(error, "cannot create display of size %d x %d", width, height);
-		}
-		else
-			sprintf(error, "%s unset", WINDOW_WIDTH_VAR);
+		al_register_event_source(game->event_queue,
+			al_get_display_event_source(game->display->screen));
+		al_register_event_source(game->event_queue,
+			al_get_mouse_event_source());
+		game->display->messagebox = init_messagebox(game->display->font);
 	}
 	else
-		sprintf(error, "%s unset", WINDOW_HEIGHT_VAR);
+		sprintf(error, "cannot create display of size %d x %d",
+			*game->display->width, *game->display->height);
 }
 
 void free_display(struct Display* display)

@@ -11,7 +11,7 @@ int coord_in_choice(int x, int y, struct Line* line)
 			y < line->messagebox->y + line->messagebox->lineheight * (line->pos + 1);
 }
 
-struct MessageBox* init_messagebox(ALLEGRO_FONT* font, int dwidth, int dheight)
+struct MessageBox* init_messagebox(ALLEGRO_FONT* font)
 {
 	struct MessageBox* messagebox = malloc(sizeof(struct MessageBox));
 	messagebox->image = -1;

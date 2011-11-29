@@ -32,7 +32,7 @@ struct MessageBox
 };
 
 int coord_in_choice(int x, int y, struct Line* line);
-struct MessageBox* init_messagebox(ALLEGRO_FONT* font, int dwidth, int dheight);
+struct MessageBox* init_messagebox(ALLEGRO_FONT* font);
 void free_messagebox(struct MessageBox* messagebox);
 void add_message(struct Display* display, char* text);
 void free_line(void* ptr);

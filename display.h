@@ -19,14 +19,16 @@ struct Game;
 
 struct Color
 {
-	int* r;
-	int* g;
-	int* b;
-	int* a;
+	char r;
+	char g;
+	char b;
+	char a;
 };
 
 struct Display
 {
+	int* width;
+	int* height;
 	ALLEGRO_DISPLAY* screen;
 	struct Image** images;
 	struct Sound** sounds;
