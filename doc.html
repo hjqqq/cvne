@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 		<style>
 td		{ border:1px solid gray; padding:3px; }
+.odd	{ background-color: #D9E2E7; }
 table	{ border-collapse:collapse; }
 code	{ color:black; background-color:#bbb; border-radius:4px; }
 		</style>
@@ -39,7 +40,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Function</td>
 					<td>Example</td>
 				</thead>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>+</strong> b</code></td>
 					<td>Adds a to b.</td>
 					<td><code>1 + 2</code> = 3</td>
@@ -49,7 +50,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Susbtracts b to a</td>
 					<td><code>4 - 6</code> = -2</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>*</strong> b</code></td>
 					<td>Multiplies a by b</code></td>
 					<td><code>6 * 7</code> = 42</td>
@@ -59,7 +60,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Divides a by b. Stops the program if b is 0.</td>
 					<td><code>7 / 2</code> = 3</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>%</strong> b</code></td>
 					<td>Moduloes a by b. Stops the program if b is 0.</td>
 					<td><code>7 % 2</code> = 1</td>
@@ -69,7 +70,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>The logical AND operator.</td>
 					<td><code>3 &amp; 0</code> = 0</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>|</strong> b</code></td>
 					<td>The logical OR operator.</td>
 					<td><code>3 | 0</code> = 1</td>
@@ -79,7 +80,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Returns NOT a. Ignores b.</td>
 					<td><code>0 ! anything</code> = 1</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>=</strong> b</code></td>
 					<td>Returns 1 if a is equal to b.</td>
 					<td><code>3 = 3</code> = 1</td>
@@ -89,7 +90,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Returns 1 if a is strictly greater than b.</td>
 					<td><code>3 &gt; 4</code> = 0</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>a <strong>&lt;</strong> b</code></td>
 					<td>Returns 1 if a is strictly lower than b.</td>
 					<td><code>3 &lt; 4</code> = 1</td>
@@ -115,7 +116,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Default value</td>
 					<td>Description</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>_width</code></td>
 					<td>640</td>
 					<td>The window width.</td>
@@ -125,7 +126,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>480</td>
 					<td>The window height</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>_verbose</code></td>
 					<td>1</td>
 					<td>Tells the program if it has to print everything it's doing to the console.</td>
@@ -135,7 +136,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>-1</td>
 					<td>The ID of the background image of messages. None if not in range.</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>_messagebox_x</code> and <code>_messagebox_y</code></td>
 					<td>0 and 0</td>
 					<td>The position of the message box.</td>
@@ -145,7 +146,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>0,255,255,255</td>
 					<td>These three variables define the color of text messages.</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>_choice_color_[r,g,b,a]</code></td>
 					<td>255,0,0</td>
 					<td>The color of choice texts.</td>
@@ -155,7 +156,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>0,0,0,0</td>
 					<td>The background color of normal text messages.</td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>_choice_bg_color_[r,g,b,a]</code></td>
 					<td>255,255,255,127</td>
 					<td>The background color of choice texts</td>
@@ -207,7 +208,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Description</td>
 					<td>Example</td>
 				</thead>
-				<tr>
+				<tr class="odd">
 					<td><code>set &lt;variable name&gt; &lt;expression or value&gt;</code></td>
 					<td>Sets a variable to the specified value or expression.</td>
 					<td><code>set i 1+2</code> sets the variables <code>i</code> to the value <code>3</code></td>
@@ -217,7 +218,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Sets the window name to the specified string. Does nothing ATM.</td>
 					<td><code>game_name My amazing super visual novel !</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>go &lt;file name&gt;</code></td>
 					<td>Jumps to the first line of the file specified by <code>file name</code></td>
 					<td><code>go scenes/scene2</code></td>
@@ -226,7 +227,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td><code>goif &lt;expression or value&gt; &lt;file name&gt;</code></td>
 					<td>Goes to <code>file name</code> as <code>go</code> would, but only if the expression or value is not 0.</td>
 					<td><code>goif collected_keys&gt;3 scenes/end_game</code></td>
-				<tr>
+				<tr class="odd">
 					<td><code>display</code></td>
 					<td>Starts the graphical display, with a size defined by <code>_width</code> and <code>_height</code></td>
 					<td><code>display</code></td>
@@ -236,7 +237,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Loads the image specified by <code>file name</code> as image number <code>image ID</code></td>
 					<td><code>load_image 42 longcat.png</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>close_image &lt;image ID&gt;</code></td>
 					<td>Unloads the image number <code>image ID</code></td>
 					<td><code>close_image 42</code></td>
@@ -246,7 +247,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Moves the image to the specified coordinates.</td>
 					<td><code>move_images 42 200 300</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>wait &lt;time&gt;</code></td>
 					<td>Waits <code>time</code> seconds before reading the next instruction.</td>
 					<td><code>wait 1.5</code></td>
@@ -256,7 +257,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Loads the sound file <code>file name</code> as the sound number <code>sound ID</code> and starts playing it.</td>
 					<td><code>play_sound 9 desu.ogg</code><td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>play_sound_loop &lt;sound ID&gt; &lt;file name&gt;</code></td>
 					<td>As <code>play_sound</code>, but when plays the sound in a loop.</td>
 					<td><code>play_sound_loop 14 mgs3-maintheme.ogg</code></td>
@@ -266,7 +267,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Stops the sound number <code>sound ID</code>, whether it is playing in a loop or not.</td>
 					<td><code>stop_sound 14</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>message &lt;text&gt;</code></td>
 					<td>Adds a line of text to the message.</td>
 					<td><code>message Oh why, hello there my good sir !</code></td>
@@ -276,7 +277,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Adds a clickable line of text to the message. If clicked, the program will jump to <code>file name</code></td>
 					<td><code>choice scenes/h-scene5 Oh my, you look quite beautiful today.</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>show_message</code></td>
 					<td>Actually displays the message written with <code>message</code> and <code>choice</code>, and waits for an action from the player.</td>
 					<td><code>show_message</code></td>
@@ -286,7 +287,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Saves every data the program has loaded, to be loaded afterwards.</td>
 					<td><code>save saves/save_file_fourty_thousand</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>load &lt;file name&gt;</code></td>
 					<td>Loads a previously saved game.</td>
 					<td><code>load saves/save_file_nineteen_hundred</code></td>
@@ -296,7 +297,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Quits the program.</td>
 					<td><code>quit</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>fade_in &lt;time&gt;</code></td>
 					<td>Turns the screen from normal to black in <code>time</code> seconds.</td>
 					<td><code>fade_in 2.2451</code></td>
@@ -306,7 +307,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Turns the screen from black to normal in <code>time</code> seconds.</td>
 					<td><code>fade_out 1</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>set_font &lt;size&gt; &lt;file name&gt;</code></td>
 					<td>Changes the font used for the messages</td>
 					<td><code>set_font 33 ComicSansMS.ttf</code></td>
