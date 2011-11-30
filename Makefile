@@ -22,7 +22,7 @@ sky :
 	ompload ../$(NAME).tar.bz2
 
 clean:
-	rm *.o $(NAME)
+	rm -f *.o $(NAME)
 
 test:
 	make
