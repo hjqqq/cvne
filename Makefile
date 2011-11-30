@@ -31,3 +31,9 @@ test:
 debug:
 	gdb -ex run --batch ./$(NAME) -ex bt
 
+push:
+	make clean
+	git add -A
+	git commit -am '.'
+	git push
+

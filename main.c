@@ -3,6 +3,8 @@
 
 #include <allegro5/allegro.h>
 
+#define malloc printf("allocating\n");malloc
+
 #include "game.h"
 
 int main(int argc, char** argv)

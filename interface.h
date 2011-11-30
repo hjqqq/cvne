@@ -23,7 +23,7 @@ struct Line
 
 struct MessageBox
 {
-	ALLEGRO_COLOR* colors;
+	ALLEGRO_COLOR colors[COLORS];
 	int image;
 	int* x;
 	int* y;

@@ -15,6 +15,7 @@ struct MessageBox* init_messagebox(void)
 {
 	struct MessageBox* messagebox = malloc(sizeof(struct MessageBox));
 	int i;
+	i++;
 	messagebox->font = al_load_ttf_font(FONT_FILE, DEFAULT_FONT_SIZE, 0);
 	if(!messagebox->font)
 	{
@@ -22,12 +23,11 @@ struct MessageBox* init_messagebox(void)
 		free(messagebox);
 		return NULL;
 	}
-	messagebox->image = -1;
 	messagebox->lineheight = al_get_font_line_height(messagebox->font);
+	messagebox->image = -1;
 	messagebox->display = 0;
 	messagebox->lines = NULL;
 	messagebox->i = 0;
-	messagebox->colors = calloc(COLORS, sizeof(struct Color));
 	for(i = 0; i < COLORS; i++)
 		messagebox->colors[i] = al_map_rgba(0, 0, 0, 0);
 	return messagebox;
@@ -35,7 +35,6 @@ struct MessageBox* init_messagebox(void)
 
 void free_messagebox(struct MessageBox* messagebox)
 {
-	free(messagebox->colors);
 	al_destroy_font(messagebox->font);
 	empty_lines(messagebox);
 	free(messagebox);
@@ -45,21 +44,21 @@ void add_line(struct MessageBox* messagebox, char* text, char* target)
 {
 	struct Line* line = malloc(sizeof(struct Line));
 	ALLEGRO_COLOR fgcolor, bgcolor;
-	if(target)
-	{
-		fgcolor = get_color_var(messagebox->colors,
-			*messagebox->choice_color, al_map_rgba(0, 0, 0, 255));
-		bgcolor = get_color_var(messagebox->colors,
-			*messagebox->choice_bg_color, al_map_rgba(0, 0, 0, 0));
-		strcpy(line->target, target);
-	}
-	else
+	if(target == NULL)
 	{
 		fgcolor = get_color_var(messagebox->colors,
 			*messagebox->message_color, al_map_rgba(255, 0, 0, 255));
 		bgcolor = get_color_var(messagebox->colors,
 			*messagebox->message_bg_color, al_map_rgba(255, 255, 255, 127));
 		line->target[0] = '\0';
+	}
+	else
+	{
+		fgcolor = get_color_var(messagebox->colors,
+			*messagebox->choice_color, al_map_rgba(0, 0, 0, 255));
+		bgcolor = get_color_var(messagebox->colors,
+			*messagebox->choice_bg_color, al_map_rgba(0, 0, 0, 0));
+		strcpy(line->target, target);
 	}
 	line->pos = messagebox->i;
 	messagebox->i++;
