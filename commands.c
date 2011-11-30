@@ -25,6 +25,7 @@ struct Item* build_command_list(void)
 	add_command(list, "choice", cmd_choice);
 	add_command(list, "set_font", cmd_set_font);
 	add_command(list, "set_color", cmd_set_color);
+	add_command(list, "force_choice", cmd_force_choice);
 	return list;
 }
 

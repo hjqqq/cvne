@@ -24,8 +24,6 @@ display
 	#go scenes\scene2
 	#move_image 1 30 30
 	#set 1 \v3 \v42 \v12ab \v8
-	set_color 1 100 100 100 255
-	set _message_color 1
 	set var_a 24
 	set var_b var_a
 	set c 1
@@ -40,7 +38,7 @@ display
 	message lol
 	choice scenes/choice1 choice one
 	choice scenes/choice2 choice two
-	show_message
+	force_choice
 	message you chose nothing !
 	show_message
 	set i 42

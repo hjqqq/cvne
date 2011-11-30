@@ -46,11 +46,13 @@ void free_line(void* ptr);
 void empty_lines(struct MessageBox* messagebox);
 
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event);
+void waitforforcedchoice(struct Game* game, ALLEGRO_EVENT* event);
 void waitfortime(struct Game* game, ALLEGRO_EVENT* event);
 
 void cmd_message(struct Game* game, char* arg);
 void cmd_choice(struct Game* game, char* arg);
 void cmd_show_message(struct Game* game, char* arg);
+void cmd_force_choice(struct Game* game, char* arg);
 void cmd_clear_lines(struct Game* game, char* arg);
 void cmd_set_font(struct Game* game, char* arg);
 void cmd_set_color(struct Game* game, char* arg);
