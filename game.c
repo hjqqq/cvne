@@ -19,7 +19,6 @@ void run_game(char* filename)
 	al_register_event_source(game->event_queue, al_get_timer_event_source(timer));
 	al_start_timer(timer);
 	cmd_go(game, filename);
-	if(*game->verbose) printf("\n");
 	while(!check_error())
 	{
 		ALLEGRO_EVENT event;

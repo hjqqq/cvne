@@ -11,12 +11,14 @@
 
 display
 	load_image 1 chocolatine/bg/0.png
-	load_image 2 chocolatine/chars/Selma/3.png
-	move_image 2 250 180
+	#load_image 2 chocolatine/chars/Selma/3.png
+	#move_image 2 250 180
 	play_sound_loop 2 desu.ogg
-	
+	load_image 88 images/messagebg.png
+	move_image 88 22 380
+	set_font 20 VeraMono.ttf
+	set _messagebox_image 88
 	wait 1
-
 	#stop_sound 2
 	#move_image 1 100 100
 	#go scenes\scene2
@@ -34,6 +36,10 @@ display
 	set _messagebox_x 42
 	message hello bob
 	message lol
+	choice scenes/choice1 choice one
+	choice scenes/choice2 choice two
+	show_message
+	message you chose nothing !
 	show_message
 	set i 42
 	#wait 1.25

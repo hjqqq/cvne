@@ -22,6 +22,9 @@ struct Item* build_command_list(void)
 	add_command(list, "message", cmd_message);
 	add_command(list, "show_message", cmd_show_message);
 	add_command(list, "clear_lines", cmd_clear_lines);
+	add_command(list, "choice", cmd_choice);
+	add_command(list, "set_font", cmd_set_font);
+	add_command(list, "set_color", cmd_set_color);
 	return list;
 }
 
@@ -80,12 +83,12 @@ void cmd_go(struct Game* game, char* arg)
 	{
 		game->file = stdin;
 		if(*game->verbose)
-			printf("--> \"%s%s%s\"", TMAGENTA, arg, TDEF);
+			printf("--> \"%s%s%s\"\n", TMAGENTA, arg, TDEF);
 	}
 	else if(!(game->file = fopen(arg, "r")))
 		sprintf(error, "cannot open \"%s\"", arg);
 	else if(*game->verbose)
-		printf("--> \"%s%s%s\"", TMAGENTA, arg, TDEF);
+		printf("--> \"%s%s%s\"\n", TMAGENTA, arg, TDEF);
 }
 
 void cmd_goif(struct Game* game, char* arg)

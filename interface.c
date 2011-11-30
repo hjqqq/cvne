@@ -15,7 +15,6 @@ struct MessageBox* init_messagebox(void)
 {
 	struct MessageBox* messagebox = malloc(sizeof(struct MessageBox));
 	int i;
-	i++;
 	messagebox->font = al_load_ttf_font(FONT_FILE, DEFAULT_FONT_SIZE, 0);
 	if(!messagebox->font)
 	{
@@ -24,7 +23,6 @@ struct MessageBox* init_messagebox(void)
 		return NULL;
 	}
 	messagebox->lineheight = al_get_font_line_height(messagebox->font);
-	messagebox->image = -1;
 	messagebox->display = 0;
 	messagebox->lines = NULL;
 	messagebox->i = 0;
@@ -47,23 +45,24 @@ void add_line(struct MessageBox* messagebox, char* text, char* target)
 	if(target == NULL)
 	{
 		fgcolor = get_color_var(messagebox->colors,
-			*messagebox->message_color, al_map_rgba(255, 0, 0, 255));
+			*messagebox->message_color, al_map_rgba(0, 255, 255, 255));
 		bgcolor = get_color_var(messagebox->colors,
-			*messagebox->message_bg_color, al_map_rgba(255, 255, 255, 127));
+			*messagebox->message_bg_color, al_map_rgba(0, 0, 0, 0));
 		line->target[0] = '\0';
 	}
 	else
 	{
 		fgcolor = get_color_var(messagebox->colors,
-			*messagebox->choice_color, al_map_rgba(0, 0, 0, 255));
+			*messagebox->choice_color, al_map_rgba(255, 0, 0, 255));
 		bgcolor = get_color_var(messagebox->colors,
-			*messagebox->choice_bg_color, al_map_rgba(0, 0, 0, 0));
+			*messagebox->choice_bg_color, al_map_rgba(255, 255, 255, 127));
 		strcpy(line->target, target);
 	}
 	line->pos = messagebox->i;
 	messagebox->i++;
 	line->width = al_get_text_width(messagebox->font, text);
 	line->bitmap = al_create_bitmap(line->width, messagebox->lineheight);
+	line->messagebox = messagebox;
 	al_set_target_bitmap(line->bitmap);
 	al_clear_to_color(bgcolor);
 	al_draw_text(messagebox->font, fgcolor, 0, 0, 0, text);
@@ -85,20 +84,7 @@ void empty_lines(struct MessageBox* messagebox)
 	if(messagebox->lines)
 		free_list(messagebox->lines, free_line);
 	messagebox->lines = NULL;
-}
-
-void waitforinput(struct Game* game, ALLEGRO_EVENT* event)
-{
-	if(event)
-	{
-		switch(event->type)
-		{
-			case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN: game->wait = NULL;
-			case ALLEGRO_EVENT_KEY_DOWN: game->wait = NULL;
-		}
-	}
-	if(!game->wait)
-		cmd_clear_lines(game, "");
+	messagebox->i = 0;
 }
 
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event)
@@ -110,10 +96,16 @@ void waitforchoice(struct Game* game, ALLEGRO_EVENT* event)
 			struct Item* cur = game->display->messagebox->lines;
 			while(cur)
 			{
-				if(coord_in_choice(event->mouse.x, event->mouse.y, cur->val))
-					game->wait = 0;
+				struct Line* line = (struct Line*) cur->val;
+				if(coord_in_choice(event->mouse.x, event->mouse.y, line))
+				{
+					cmd_go(game, line->target);
+					break;
+				}
 				cur = cur->next;
 			}
+			game->wait = 0;
+			empty_lines(game->display->messagebox);
 		}
 	}
 }
@@ -129,14 +121,50 @@ void cmd_message(struct Game* game, char* s)
 	add_line(game->display->messagebox, s, NULL);
 }
 
+void cmd_choice(struct Game* game, char* s)
+{
+	char* text = cut_command(s);
+	add_line(game->display->messagebox, text, s);
+}
+
 void cmd_show_message(struct Game* game, char* s)
 {
 	game->display->messagebox->display = 1;
-	game->wait = waitforinput;
+	game->wait = waitforchoice;
 }
 
 void cmd_clear_lines(struct Game* game, char* s)
 {
 	empty_lines(game->display->messagebox);
+}
+
+void cmd_set_font(struct Game* game, char* s)
+{
+	char* filename = cut_command(s);
+	if(game->display->messagebox->font)
+		al_destroy_font(game->display->messagebox->font);
+	game->display->messagebox->font = al_load_ttf_font(filename, eval(game->vars, s), 0);
+	if(!game->display->messagebox->font)
+		sprintf(error, "cannot load font file \"%s\"", filename);
+	else
+		game->display->messagebox->lineheight = al_get_font_line_height(
+			game->display->messagebox->font);
+}
+
+void cmd_set_color(struct Game* game, char* s)
+{
+	char *r, *g, *b, *a;
+	int id;
+	r = cut_command(s);
+	g = cut_command(r);
+	b = cut_command(g);
+	a = cut_command(b);
+	id = eval(game->vars, s);
+	if(id < 0 || id >= COLORS)
+		sprintf(error, "color id out of range : %d", id);
+	else
+		game->display->messagebox->colors[id] = 
+			al_map_rgba(eval(game->vars, r), eval(game->vars, g),
+			eval(game->vars, b), eval(game->vars, a));
 }
 

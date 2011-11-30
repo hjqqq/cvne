@@ -24,7 +24,7 @@ struct Line
 struct MessageBox
 {
 	ALLEGRO_COLOR colors[COLORS];
-	int image;
+	int* image;
 	int* x;
 	int* y;
 	int i;
@@ -45,13 +45,15 @@ void add_line(struct MessageBox* messagebox, char* text, char* target);
 void free_line(void* ptr);
 void empty_lines(struct MessageBox* messagebox);
 
-void waitforinput(struct Game* game, ALLEGRO_EVENT* event);
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event);
 void waitfortime(struct Game* game, ALLEGRO_EVENT* event);
 
 void cmd_message(struct Game* game, char* arg);
+void cmd_choice(struct Game* game, char* arg);
 void cmd_show_message(struct Game* game, char* arg);
 void cmd_clear_lines(struct Game* game, char* arg);
+void cmd_set_font(struct Game* game, char* arg);
+void cmd_set_color(struct Game* game, char* arg);
 
 #endif
 

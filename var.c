@@ -89,6 +89,7 @@ struct Item* build_special_vars(struct Game* game)
 	game->display->messagebox->choice_bg_color = setbind(list, "_choice_bg_color", -1);
 	game->display->messagebox->x = setbind(list, "_messagebox_x", 0);
 	game->display->messagebox->y = setbind(list, "_messagebox_y", 0);
+	game->display->messagebox->image = setbind(list, "_messagebox_image", -1);
 	return list;
 }
 

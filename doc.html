@@ -106,8 +106,6 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 			Special variables are variables that are already set to a default value,
 			but that can be changed like any other variable with the <code>set</code>
 			command. The begin the an underscore (_). Here is an exhaustive list :<br />
-			Note : brackets ([]) means that these are actually multiple variables, but we
-			didn't write every single one separately for convenience.<br />
 			Note : for colors, <code>r,g,b,a</code> refer to red, green, blue, and alpha
 			(transparency). They are all from 0 to 255.
 			<table>
@@ -132,7 +130,7 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Tells the program if it has to print everything it's doing to the console.</td>
 				</tr>
 				<tr>
-					<td><code>_message_image</code></td>
+					<td><code>_messagebox_image</code></td>
 					<td>-1</td>
 					<td>The ID of the background image of messages. None if not in range.</td>
 				</tr>
@@ -142,23 +140,23 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>The position of the message box.</td>
 				</tr>
 				<tr>
-					<td><code>_message_color_[r,g,b,a]</code></td>
-					<td>0,255,255,255</td>
+					<td><code>_message_color</code></td>
+					<td>-1</td>
 					<td>These three variables define the color of text messages.</td>
 				</tr>
 				<tr class="odd">
-					<td><code>_choice_color_[r,g,b,a]</code></td>
-					<td>255,0,0</td>
+					<td><code>_choice_color</code></td>
+					<td>-1</td>
 					<td>The color of choice texts.</td>
 				</tr>
 				<tr>
-					<td><code>_message_bg_color_[r,g,b,a]</code></td>
-					<td>0,0,0,0</td>
+					<td><code>_message_bg_color</code></td>
+					<td>-1</td>
 					<td>The background color of normal text messages.</td>
 				</tr>
 				<tr class="odd">
-					<td><code>_choice_bg_color_[r,g,b,a]</code></td>
-					<td>255,255,255,127</td>
+					<td><code>_choice_bg_color</code></td>
+					<td>-1</td>
 					<td>The background color of choice texts</td>
 				</tr>
 				<tr>
@@ -168,13 +166,15 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 				</tr>
 			</table>
 		</p>
-		<h2>Images and sounds</h2>
+		<h2>Images, sounds and colors</h2>
 		<p>
 			Images and sounds are -for the moment- limited in their number. They are
 			each identified by a number, typically between 0 and 1024. That means you
 			can have at most 1024 sounds and 1024 images loaded at the same time.
 			Each of these resources can be either loaded or not. If you try to operate
 			on a resource that hasn't been loaded, the interpreter will scream at you.
+			Colors are like sounds and images, but they are not loaded from files. They
+			are simply set with <code>set_color</code>.
 		</p>
 		<h2>Paths</h2>
 		<p>
@@ -310,6 +310,10 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>Changes the font used for the messages</td>
 					<td><code>set_font 33 ComicSansMS.ttf</code></td>
 				</tr>
+				<tr>
+					<td><code>set_color &lt;color ID&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;</code></td>
+					<td>Set a color</td>
+					<td><code>set_color 2 0 255 255 255</code></td>
 			</table>
 		</p>
 	</body>

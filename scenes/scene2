@@ -5,3 +5,6 @@ set i i+1
 move_image 2 i+4 i+200
 wait 0.05
 goif i<100 scenes/scene2
+message congrats
+show_message
+
