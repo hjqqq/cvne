@@ -29,6 +29,8 @@ test:
 	./$(NAME)
 
 debug:
+	make clean
+	make -j5
 	gdb -ex run --batch ./$(NAME) -ex bt
 
 push:
