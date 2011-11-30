@@ -92,6 +92,14 @@ struct Item* build_special_vars(struct Game* game)
 	return list;
 }
 
+ALLEGRO_COLOR get_color_var(ALLEGRO_COLOR* colors, int id, ALLEGRO_COLOR defaultval)
+{
+	if(id < 0 || id >= COLORS)
+		return defaultval;
+	else
+		return colors[id];
+}
+
 void cmd_set(struct Game* game, char* arg)
 {
 	char* valuestr = cut_command(arg);

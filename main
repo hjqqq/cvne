@@ -30,6 +30,7 @@ display
 	set f c +d
 	set g c+ d
 	play_sound 4 hellobob.ogg
+	set _messagebox_y 30
 	message hello bob
 	message lol
 	show_message

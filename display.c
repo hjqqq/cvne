@@ -7,21 +7,11 @@ struct Display* build_display(void)
 	display->screen = NULL;
 	display->images = calloc(IMAGES, sizeof(struct Image*));
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
-	display->colors = calloc(COLORS, sizeof(struct Color));
 	for(i = 0; i < IMAGES; i++)
 		display->images[i] = NULL;
 	for(i = 0; i < SOUNDS; i++)
 		display->sounds[i] = NULL;
-	for(i = 0; i < COLORS; i++)
-	{
-		display->colors[i].r = 0;
-		display->colors[i].g = 0;
-		display->colors[i].b = 0;
-		display->colors[i].a = 0;
-	}
-	display->font = al_load_ttf_font(FONT_FILE, DEFAULT_FONT_SIZE, 0);
-	if(!display->font)
-		sprintf(error, "cannot load font file \"%s\"", FONT_FILE);
+	display->messagebox = init_messagebox();
 	return display;
 }
 
@@ -36,7 +26,6 @@ void init_display(struct Game* game)
 			al_get_mouse_event_source());
 		al_register_event_source(game->event_queue,
 			al_get_keyboard_event_source());
-		game->display->messagebox = init_messagebox(game->display->font);
 	}
 	else
 		sprintf(error, "cannot create display of size %d x %d",
@@ -56,8 +45,7 @@ void free_display(struct Display* display)
 			freestop_sound(display->sounds[i]);
 	free(display->images);
 	free(display->sounds);
-	free(display->colors);
-	al_destroy_font(display->font);
+	free_messagebox(display->messagebox);
 	free(display);
 }
 
@@ -78,11 +66,9 @@ void display_display(struct Game* game)
 			draw_image(display->images[i]);
 		while(cur)
 		{
-			al_draw_text(display->font, al_map_rgb(0, 255, 255),
-				*messagebox->x,
-				(*messagebox->y) + messagebox->lineheight * ((struct Line*)cur->val)->pos,
-				0,
-				((struct Line*)cur->val)->text);
+			al_draw_bitmap(((struct Line*)cur->val)->bitmap,
+				*messagebox->x, 
+				(*messagebox->y) + messagebox->lineheight * ((struct Line*)cur->val)->pos, 0);
 			cur = cur->next;
 		}
 	}

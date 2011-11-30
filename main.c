@@ -23,7 +23,6 @@ int main(int argc, char** argv)
 		run_game(argv[1]);
 	else
 		run_game("main");
-	printf("zu\n");
 	return EXIT_SUCCESS;
 }
 

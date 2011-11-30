@@ -16,12 +16,14 @@ struct Line
 	int pos;
 	int width;
 	char target[PATH_SIZE];
-	char text[MESSAGE_LINE_SIZE];
+	/*char text[MESSAGE_LINE_SIZE];*/
+	ALLEGRO_BITMAP* bitmap;
 	struct MessageBox* messagebox;
 };
 
 struct MessageBox
 {
+	ALLEGRO_COLOR* colors;
 	int image;
 	int* x;
 	int* y;
@@ -33,12 +35,13 @@ struct MessageBox
 	int* choice_color;
 	int* message_bg_color;
 	int* choice_bg_color;
+	ALLEGRO_FONT* font;
 };
 
 int coord_in_choice(int x, int y, struct Line* line);
-struct MessageBox* init_messagebox(ALLEGRO_FONT* font);
+struct MessageBox* init_messagebox(void);
 void free_messagebox(struct MessageBox* messagebox);
-void add_message(struct Display* display, char* text);
+void add_line(struct MessageBox* messagebox, char* text, char* target);
 void free_line(void* ptr);
 void empty_lines(struct MessageBox* messagebox);
 

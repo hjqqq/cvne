@@ -25,9 +25,7 @@ struct Display
 	ALLEGRO_DISPLAY* screen;
 	struct Image** images;
 	struct Sound** sounds;
-	struct Color* colors;
 	struct MessageBox* messagebox;
-	ALLEGRO_FONT* font;
 };
 
 struct Display* build_display(void);

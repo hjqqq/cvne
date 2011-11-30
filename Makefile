@@ -29,5 +29,5 @@ test:
 	./$(NAME)
 
 debug:
-	gdb --eval-command=run --batch ./$(NAME)
+	gdb -ex run --batch ./$(NAME) -ex bt
 
