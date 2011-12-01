@@ -8,7 +8,9 @@
 
 #include "game.h"
 #include "display.h"
+#include "image.h"
 
+struct Image;
 struct Display;
 
 struct Line
@@ -25,6 +27,7 @@ struct MessageBox
 {
 	ALLEGRO_COLOR colors[COLORS];
 	int* image;
+	int* choicecursor;
 	int* x;
 	int* y;
 	int i;
@@ -44,6 +47,7 @@ void free_messagebox(struct MessageBox* messagebox);
 void add_line(struct MessageBox* messagebox, char* text, char* target);
 void free_line(void* ptr);
 void empty_lines(struct MessageBox* messagebox);
+void draw_cursor(struct Image* image, struct Display* display);
 
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event);
 void waitforforcedchoice(struct Game* game, ALLEGRO_EVENT* event);

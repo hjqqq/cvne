@@ -35,6 +35,10 @@ void run_game(char* filename)
 				case ALLEGRO_EVENT_DISPLAY_CLOSE:
 					sprintf(error, "window closed");
 					break;
+				case ALLEGRO_EVENT_MOUSE_AXES:
+					game->display->mousex = event.mouse.x;
+					game->display->mousey = event.mouse.y;
+					break;
 			}
 		}
 		else if(game->wait)

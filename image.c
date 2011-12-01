@@ -54,12 +54,21 @@ void draw_image(struct Image* image)
 void cmd_load_image(struct Game* game, char* arg)
 {
 	char* filename = cut_command(arg);
-	int id = eval(game->vars, arg);
+	int id = eval(game->vars, arg), x, y;
 	path_compatibilize(filename);
 	if(image_id_in_range(id))
 	{
 		if(game->display->images[id])
+		{
+			x = game->display->images[id]->x;
+			y = game->display->images[id]->y;
 			free_image(game->display->images[id]);
+		}
+		else
+		{
+			x = 0;
+			y = 0;
+		}
 		if(!(game->display->images[id] = load_image(filename, 0, 0)))
 			sprintf(error, "cannot load image %d \"%s\"", id, filename);
 	}

@@ -26,6 +26,8 @@ struct Display
 	struct Image** images;
 	struct Sound** sounds;
 	struct MessageBox* messagebox;
+	int mousex;
+	int mousey;
 };
 
 struct Display* build_display(void);

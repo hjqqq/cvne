@@ -87,6 +87,22 @@ void empty_lines(struct MessageBox* messagebox)
 	messagebox->i = 0;
 }
 
+void draw_cursor(struct Image* image, struct Display* display)
+{
+	struct MessageBox* messagebox = display->messagebox;
+	struct Item* cur = messagebox->lines;
+	while(cur)
+	{
+		struct Line* line = cur->val;
+		if(coord_in_choice(display->mousex, display->mousey, line))
+		{
+			al_draw_bitmap(image->bitmap, image->x, image->y + line->pos * messagebox->lineheight, 0);
+			break;
+		}
+		cur = cur->next;
+	}
+}
+
 void waitforchoice(struct Game* game, ALLEGRO_EVENT* event)
 {
 	if(event)
