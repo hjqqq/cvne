@@ -18,12 +18,19 @@
 
 struct Game;
 
+struct Image
+{
+	ALLEGRO_BITMAP* bitmap;
+	float x;
+	float y;
+};
+
 struct Display
 {
 	int* width;
 	int* height;
 	ALLEGRO_DISPLAY* screen;
-	struct Image** images;
+	struct Image images[IMAGES];
 	struct Sound** sounds;
 	struct MessageBox* messagebox;
 	int mousex;

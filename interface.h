@@ -14,8 +14,8 @@
 
 struct MessageBox;
 struct Line;
-struct Image;
 struct Display;
+struct Image;
 
 int coord_in_choice(int x, int y, struct Line* line);
 void draw_cursor(struct Image* image, struct Display* display);

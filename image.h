@@ -10,20 +10,14 @@
 #include "game.h"
 #include "defines.h"
 #include "display.h"
+#include "image.h"
 
+struct Image;
 struct Game;
 
-struct Image
-{
-	ALLEGRO_BITMAP* bitmap;
-	float x;
-	float y;
-};
-
-struct Image* load_image(char* filename, float x, float y);
-void free_image(struct Image* image);
+int load_image(struct Image* image, char* filename);
 int image_id_in_range(int id);
-struct Image* image_loaded(struct Image** images, int id);
+struct Image* image_loaded(struct Image* images, int id);
 void draw_image(struct Image* image);
 
 void cmd_load_image(struct Game* game, char* arg);

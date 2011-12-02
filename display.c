@@ -5,10 +5,13 @@ struct Display* build_display(void)
 	struct Display* display = malloc(sizeof(struct Display));
 	int i;
 	display->screen = NULL;
-	display->images = calloc(IMAGES, sizeof(struct Image*));
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
-		display->images[i] = NULL;
+	{
+		display->images[i].x = 0;
+		display->images[i].y = 0;
+		display->images[i].bitmap = NULL;
+	}
 	for(i = 0; i < SOUNDS; i++)
 		display->sounds[i] = NULL;
 	display->messagebox = init_messagebox();
@@ -38,12 +41,11 @@ void free_display(struct Display* display)
 	if(display->screen)
 		al_destroy_display(display->screen);
 	for(i = 0; i < IMAGES; i++)
-		if(display->images[i])
-			free_image(display->images[i]);
+		if(display->images[i].bitmap)
+			al_destroy_bitmap(display->images[i].bitmap);
 	for(i = 0; i < SOUNDS; i++)
 		if(display->sounds[i])
 			freestop_sound(display->sounds[i]);
-	free(display->images);
 	free(display->sounds);
 	free_messagebox(display->messagebox);
 	free(display);
@@ -57,20 +59,20 @@ void display_display(struct Game* game)
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	for(i = 0; i < IMAGES; i++)
 	{
-		if(display->images[i] != NULL)
+		if(display->images[i].bitmap != NULL)
 		{
 			if(i == *display->messagebox->image)
 			{
 				if(display->messagebox->display)
-					draw_image(display->images[i]);
+					draw_image(&display->images[i]);
 			}
 			else if(i == *display->messagebox->choicecursor)
 			{
 				if(display->messagebox->display)
-					draw_cursor(display->images[i], display);
+					draw_cursor(&display->images[i], display);
 			}
 			else
-				draw_image(display->images[i]);
+				draw_image(&display->images[i]);
 		}
 	}
 	if(display->messagebox->display)
