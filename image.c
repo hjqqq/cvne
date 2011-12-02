@@ -54,10 +54,11 @@ void draw_image(struct Image* image)
 void cmd_load_image(struct Game* game, char* arg)
 {
 	char* filename = cut_command(arg);
-	int id = eval(game->vars, arg), x, y;
+	int id = eval(game->vars, arg);
 	path_compatibilize(filename);
 	if(image_id_in_range(id))
 	{
+		int x, y;
 		if(game->display->images[id])
 		{
 			x = game->display->images[id]->x;
