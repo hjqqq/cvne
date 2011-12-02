@@ -74,19 +74,17 @@ void display_display(struct Game* game)
 			else
 				draw_image(&display->images[i]);
 		}
-	}
-	if(display->messagebox->display)
-	{
-		struct MessageBox* messagebox = display->messagebox;
-		struct Item* cur = messagebox->lines;
-		/*if(*messagebox->image >= 0 && *messagebox->image < IMAGES)
-			draw_image(display->images[*messagebox->image]);*/
-		while(cur)
+		if(i == IMAGES / 2 && display->messagebox->display)
 		{
-			al_draw_bitmap(((struct Line*)cur->val)->bitmap,
-				*messagebox->x, 
-				(*messagebox->y) + messagebox->lineheight * ((struct Line*)cur->val)->pos, 0);
-			cur = cur->next;
+			struct MessageBox* messagebox = display->messagebox;
+			struct Item* cur = messagebox->lines;
+			while(cur)
+			{
+				al_draw_bitmap(((struct Line*)cur->val)->bitmap,
+					*messagebox->x, 
+					(*messagebox->y) + messagebox->lineheight * ((struct Line*)cur->val)->pos, 0);
+				cur = cur->next;
+			}
 		}
 	}
 	al_flip_display();
