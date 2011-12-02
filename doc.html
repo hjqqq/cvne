@@ -164,6 +164,11 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td>1</td>
 					<td>Tells if the user is allowed to save the game.</td>
 				</tr>
+				<tr class="odd">
+					<td><code>_choice_cursor_image</code></td>
+					<td>-1</td>
+					<td>The choice cursor image.</td>
+				</tr>
 			</table>
 		</p>
 		<h2>Images, sounds and colors</h2>
@@ -296,26 +301,21 @@ code	{ color:black; background-color:#bbb; border-radius:4px; }
 					<td><code>quit</code></td>
 				</tr>
 				<tr class="odd">
-					<td><code>fade_in &lt;time&gt;</code></td>
-					<td>Turns the screen from normal to black in <code>time</code> seconds.</td>
+					<td><code>fade &lt;time&gt; &lt;color ID&gt;</code></td>
+					<td>Change the game color to <code>color ID</code> in <code>time</code> seconds.</td>
 					<td><code>fade_in 2.2451</code></td>
 				</tr>
 				<tr>
-					<td><code>fade_out &lt;time&gt;</code></td>
-					<td>Turns the screen from black to normal in <code>time</code> seconds.</td>
-					<td><code>fade_out 1</code></td>
-				</tr>
-				<tr class="odd">
 					<td><code>set_font &lt;size&gt; &lt;file name&gt;</code></td>
 					<td>Changes the font used for the messages</td>
 					<td><code>set_font 33 ComicSansMS.ttf</code></td>
 				</tr>
-				<tr>
+				<tr class="odd">
 					<td><code>set_color &lt;color ID&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;</code></td>
 					<td>Set a color</td>
 					<td><code>set_color 2 0 255 255 255</code></td>
 				</tr>
-				<tr class="odd">
+				<tr>
 					<td><code>force_choice</code></td>
 					<td>Like show_message, but doesn’t let you go until you click on a choice.</td>
 					<td><code>force_choice</code></td>

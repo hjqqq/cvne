@@ -10,7 +10,7 @@ void waitforchoice(struct Game* game, ALLEGRO_EVENT* event)
 			while(cur)
 			{
 				struct Line* line = (struct Line*) cur->val;
-				if(coord_in_choice(event->mouse.x, event->mouse.y, line))
+				if(coord_in_choice(game->display->mousex, game->display->mousey, line))
 				{
 					cmd_go(game, line->target);
 					break;
@@ -33,7 +33,7 @@ void waitforforcedchoice(struct Game* game, ALLEGRO_EVENT* event)
 			while(cur)
 			{
 				struct Line* line = (struct Line*) cur->val;
-				if(coord_in_choice(event->mouse.x, event->mouse.y, line))
+				if(coord_in_choice(game->display->mousex, game->display->mousey, line))
 				{
 					cmd_go(game, line->target);
 					game->wait = 0;
