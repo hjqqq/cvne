@@ -11,7 +11,7 @@ struct Item* build_command_list(void)
 	add_command(list, "go", cmd_go);
 	add_command(list, "display", cmd_display);
 	add_command(list, "load_image", cmd_load_image);
-	add_command(list, "close_image", cmd_load_image);
+	add_command(list, "close_image", cmd_close_image);
 	add_command(list, "move_image", cmd_move_image);
 	add_command(list, "set", cmd_set);
 	add_command(list, "goif", cmd_goif);
