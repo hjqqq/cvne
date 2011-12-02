@@ -76,7 +76,7 @@ int eval(struct Item* vars, char* s)
 				if(b == 0)
 				{
 					sprintf(error, "division by zero");
-					return 0;
+					return 42;
 				}
 				return a / b;
 			case '%':
@@ -84,7 +84,7 @@ int eval(struct Item* vars, char* s)
 				if(b == 0)
 				{
 					sprintf(error, "modulo by zero");
-					return 0;
+					return 42;
 				}
 				return a % b;
 		}
