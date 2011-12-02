@@ -14,7 +14,9 @@ void run_game(char* filename)
 {
 	struct Game* game = initialize_game();
 	char buffer[BUFFER_SIZE];
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
+	ALLEGRO_TIMER *timer;
+	if(error[0] != '\0') return;
+	timer = al_create_timer(1.0 / 60.0);
 	game->event_queue = al_create_event_queue();
 	al_register_event_source(game->event_queue, al_get_timer_event_source(timer));
 	al_start_timer(timer);
@@ -59,6 +61,7 @@ struct Game* initialize_game(void)
 {
 	struct Game* game = malloc(sizeof(struct Game));
 	game->display = build_display();
+	if(check_error()) return NULL;
 	game->vars = build_special_vars(game);
 	game->command_list = build_command_list();
 	game->name[0] = '\0';
