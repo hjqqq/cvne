@@ -12,6 +12,7 @@
 display
 	load_image 1 chocolatine/bg/0.png
 	load_image 2 chocolatine/chars/Selma/3.png
+	move_image 1 0 0
 	move_image 2 250 180
 	play_sound_loop 2 desu.ogg
 	load_image 88 images/messagebg.png
