@@ -7,11 +7,7 @@ struct Display* build_display(void)
 	display->screen = NULL;
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
-	{
-		display->images[i].x = 90000;
-		display->images[i].y = 90000;
 		display->images[i].bitmap = NULL;
-	}
 	for(i = 0; i < SOUNDS; i++)
 		display->sounds[i] = NULL;
 	display->messagebox = init_messagebox();
@@ -23,6 +19,12 @@ void init_display(struct Game* game)
 	game->display->screen = al_create_display(*game->display->width, *game->display->height);
 	if(game->display->screen)
 	{
+		int i;
+		for(i = 0; i < IMAGES; i++)
+		{
+			game->display->images[i].x = *game->display->width;
+			game->display->images[i].y = *game->display->height;
+		}
 		al_register_event_source(game->event_queue,
 			al_get_display_event_source(game->display->screen));
 		al_register_event_source(game->event_queue,
