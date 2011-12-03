@@ -8,8 +8,8 @@ struct Display* build_display(void)
 	display->sounds = calloc(SOUNDS, sizeof(struct Sound*));
 	for(i = 0; i < IMAGES; i++)
 	{
-		display->images[i].x = 0;
-		display->images[i].y = 0;
+		display->images[i].x = 90000;
+		display->images[i].y = 90000;
 		display->images[i].bitmap = NULL;
 	}
 	for(i = 0; i < SOUNDS; i++)
