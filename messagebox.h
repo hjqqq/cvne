@@ -26,6 +26,7 @@ struct MessageBox
 
 struct MessageBox* init_messagebox(void);
 void free_messagebox(struct MessageBox* messagebox);
+void draw_messagebox(struct MessageBox* messagebox);
 
 void cmd_set_font(struct Game* game, char* arg);
 void cmd_set_color(struct Game* game, char* arg);

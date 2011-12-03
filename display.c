@@ -57,6 +57,8 @@ void display_display(struct Game* game)
 	struct Display* display = game->display;
 	al_set_target_bitmap(al_get_backbuffer(display->screen));
 	al_clear_to_color(al_map_rgb(0, 0, 0));
+	if(display->messagebox->display && *display->messagebox->image < 0)
+		draw_messagebox(display->messagebox);
 	for(i = 0; i < IMAGES; i++)
 	{
 		if(display->images[i].bitmap != NULL)
@@ -64,7 +66,10 @@ void display_display(struct Game* game)
 			if(i == *display->messagebox->image)
 			{
 				if(display->messagebox->display)
+				{
 					draw_image(&display->images[i]);
+					draw_messagebox(display->messagebox);
+				}
 			}
 			else if(i == *display->messagebox->choicecursor)
 			{
@@ -74,19 +79,9 @@ void display_display(struct Game* game)
 			else
 				draw_image(&display->images[i]);
 		}
-		if(i == IMAGES / 2 && display->messagebox->display)
-		{
-			struct MessageBox* messagebox = display->messagebox;
-			struct Item* cur = messagebox->lines;
-			while(cur)
-			{
-				al_draw_bitmap(((struct Line*)cur->val)->bitmap,
-					*messagebox->x, 
-					(*messagebox->y) + messagebox->lineheight * ((struct Line*)cur->val)->pos, 0);
-				cur = cur->next;
-			}
-		}
 	}
+	if(display->messagebox->display && *display->messagebox->image >= IMAGES)
+		draw_messagebox(display->messagebox);
 	al_flip_display();
 }
 

@@ -102,6 +102,7 @@ void cmd_goif(struct Game* game, char* arg)
 void cmd_wait(struct Game* game, char* arg)
 {
 	double time = atof(arg);
+	game->display->messagebox->display = 0;
 	game->wait_time = al_get_time() + time;
 	game->wait = waitfortime;
 	if(*game->verbose)

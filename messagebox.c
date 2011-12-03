@@ -27,6 +27,18 @@ void free_messagebox(struct MessageBox* messagebox)
 	free(messagebox);
 }
 
+void draw_messagebox(struct MessageBox* messagebox)
+{
+	struct Item* cur = messagebox->lines;
+	while(cur)
+	{
+		struct Line* line = cur->val;
+		al_draw_bitmap(line->bitmap, *messagebox->x,
+			*messagebox->y + messagebox->lineheight * line->pos, 0);
+		cur = cur->next;
+	}
+}
+
 void cmd_set_font(struct Game* game, char* s)
 {
 	char* filename = cut_command(s);

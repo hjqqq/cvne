@@ -47,7 +47,6 @@ void empty_lines(struct MessageBox* messagebox)
 		free_list(messagebox->lines, free_line);
 	messagebox->lines = NULL;
 	messagebox->i = 0;
-	messagebox->display = 0;
 }
 
 void cmd_clear_lines(struct Game* game, char* s)
