@@ -89,6 +89,7 @@ void display_display(struct Game* game)
 
 void cmd_display(struct Game* game, char* arg)
 {
+	(void) arg;
 	if(game->display->screen)
 		strcpy(error, "display already initialized");
 	else

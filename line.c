@@ -51,6 +51,7 @@ void empty_lines(struct MessageBox* messagebox)
 
 void cmd_clear_lines(struct Game* game, char* s)
 {
+	(void) s;
 	empty_lines(game->display->messagebox);
 }
 

@@ -52,6 +52,8 @@ void run_game(char* filename)
 			run_command(game, strip_begin(buffer));
 		}
 	}
+	if(!*game->verbose)
+		printf("\n");
 	al_destroy_timer(timer);
 	al_destroy_event_queue(game->event_queue);
 	free_game(game);

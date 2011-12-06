@@ -66,6 +66,7 @@ int run_command(struct Game* game, char* command)
 	
 void cmd_nothing(struct Game* game, char* arg)
 {
+	(void) arg;
 	if(*game->verbose)
 		printf("doing absolutely fucking %snothing%s", TCYAN, TDEF);
 }

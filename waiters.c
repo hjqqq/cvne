@@ -48,6 +48,7 @@ void waitforforcedchoice(struct Game* game, ALLEGRO_EVENT* event)
 
 void waitfortime(struct Game* game, ALLEGRO_EVENT* event)
 {
+	(void) event;
 	if(al_get_time() > game->wait_time)
 		game->wait = NULL;
 }

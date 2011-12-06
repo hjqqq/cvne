@@ -40,12 +40,14 @@ void cmd_choice(struct Game* game, char* s)
 
 void cmd_show_message(struct Game* game, char* s)
 {
+	(void) s;
 	game->display->messagebox->display = 1;
 	game->wait = waitforchoice;
 }
 
 void cmd_force_choice(struct Game* game, char* s)
 {
+	(void) s;
 	game->display->messagebox->display = 1;
 	game->wait = waitforforcedchoice;
 }

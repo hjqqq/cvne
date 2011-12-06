@@ -1,6 +1,6 @@
 CC = clang
 NAME = cvne
-CFLAGS = -g -O0 -Wall -Werror -ansi -pedantic -march=native 
+CFLAGS = -g -O0 -Wall -Wextra -Werror -ansi -pedantic -march=native 
 LDFLAGS = -lm -lallegro -lallegro_image -lallegro_audio -lallegro_acodec -lallegro_font -lallegro_ttf -lallegro_font -lallegro_ttf 
 MAKEFLAGS = -j5
 objects := $(patsubst %.c,%.o,$(wildcard *.c))
