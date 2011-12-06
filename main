@@ -15,10 +15,10 @@ display
 	move_image 1 0 0
 	move_image 2 250 180
 	play_sound_loop 2 desu.ogg
-	load_image 88 images/messagebg.png
-	move_image 88 22 380
+	load_image 888 images/messagebg.png
+	move_image 888 22 380
 	set_font 20 VeraMono.ttf
-	set _messagebox_image 88
+	set _messagebox_image 888
 	load_image 89 images/choicecursor.png
 	move_image 89 10 400
 	set _choice_cursor_image 89
