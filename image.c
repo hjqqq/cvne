@@ -74,7 +74,6 @@ void cmd_move_image(struct Game* game, char* arg)
 		if(*game->verbose)
 			printf("image %s%d%s -> %s%d%s;%s%d%s",
 				TGREEN, id, TDEF, TMAGENTA, x, TDEF, TMAGENTA, y, TDEF);
-		printf("printf at %f;%f\n", game->display->images[id].x, game->display->images[id].y);
 	}
 }
 
